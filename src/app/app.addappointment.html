@@ -1,0 +1,417 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-atom">
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
+    <form name="eventForm" #eventForm="ngForm" class="form-horizontal">
+      <div class="content-box-large shade-box">
+        <div class="form-row">
+          <div class="panel-heading col-sm-11">
+
+            <h4 class="panel-title"><span>Release Schedule Window</span></h4>
+          </div>
+          <div class="col-sm-1">
+            <a routerLink="/listing" data-rel="collapse" class="float-right" (click)="backtoApptListing()"><i
+                class="glyphicon glyphicon-plus"></i>Back</a>
+          </div>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Release Category</label>
+              <select class="form-control" [disabled]="itemId" name="releaseType" #releaseType="ngModel"
+                [(ngModel)]="event.releaseType" required>
+                <option value="1">--None--</option>
+                <option value="2">Major</option>
+                <option value="3">Minor</option>
+                <option value="4">patch</option>
+                <option value="5">certificate</option>
+              </select>
+              <div *ngIf="releaseType.invalid && (releaseType.dirty || releaseType.touched)" class="alert alert-danger">
+                <div *ngIf="releaseType.errors.required">Please select a release type.</div>
+              </div>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+            <div class="col-sm-5 form-group">
+              <label>Type</label>
+              <input class="form-control" type="text" id="Type" name="Type" value="Normal" readonly>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Environment Domain</label>
+              <select class="form-control" name="environmentdomain" [disabled]="itemId" #environmentdomain="ngModel"
+                [(ngModel)]="event.environmentdomain" required>
+                <option value="1">Air4</option>
+                <option value="2">DL</option>
+              </select>
+              <div *ngIf="environmentdomain.invalid && (environmentdomain.dirty || environmentdomain.touched)"
+                class="alert alert-danger">
+                <div *ngIf="environmentdomain.errors.required">Please select a Environment Domain.</div>
+              </div>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+
+            <div class="col-sm-5 form-group">
+              <label>State</label>
+              <input class="form-control" type="text" id="state" name="state" value="New" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Release Change Number</label>
+              <input class="form-control" [disabled]="itemId" #releasecn="ngModel" [(ngModel)]="event.releasecn"
+                name="releasecn" placeholder="RFC number" maxlength="50">
+            </div>
+            
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+            <div class="col-sm-5 form-group">
+              <label>Conflict Status</label>
+              <input class="form-control" type="text" id="status" name="status" value="Not Run" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Category</label>
+              <select class="form-control" name="Category" [disabled]="itemId" #Category="ngModel"
+                [(ngModel)]="event.Category" required>
+                <option value="1">--None--</option>
+                <option value="2">Messaging</option>
+                <option value="3">End user hardware</option>
+                <option value="4">Telecom</option>
+                <option value="5">Mobile Device</option>
+                <option value="6">Software</option>
+                <option value="7">Application</option>
+                <option value="8">Network</option>
+                <option value="9">Database</option>
+                <option value="10">Storage</option>
+                <option value="11">Server</option>
+                <option value="12">Facilities</option>
+                <option value="13">IT security</option>
+                <option value="14">Radio</option>
+              </select>
+              <div *ngIf="Category.invalid && (Category.dirty || Category.touched)" class="alert alert-danger">
+                <div *ngIf="Category.errors.required">Please select a Category</div>
+              </div>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+            
+            <div class="col-sm-5 form-group">
+              <label>Assignment group</label>
+              <input class="form-control" type="text" id="status" name="status" value="RevMgmt-ShoppingandBradningAPI"
+                readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Configuration Item</label>
+              <select class="form-control" name="CItem" [disabled]="itemId" #CItem="ngModel" [(ngModel)]="event.CItem" required>
+                <option value="1">ShoppingAPI</option>
+              </select>
+              <div *ngIf="CItem.invalid && (CItem.dirty || CItem.touched)" class="alert alert-danger">
+                <div *ngIf="CItem.errors.required">Please select a Configuration Item</div>
+              </div>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+            <div class="col-sm-5 form-group">
+              <label>Assigned To</label>
+              <select class="form-control" name="Assigned" [disabled]="itemId" #Assigned="ngModel"
+                [(ngModel)]="event.Assigned" required>
+                <option value="1">Jhonston,Gina</option>
+                <option value="2">Megha,Halgan</option>
+                <option value="3">Kantharao,Patchava</option>
+                <option value="4">Shashidhar,Reddy</option>
+              </select>
+              <div *ngIf="environmentdomain.invalid && (environmentdomain.dirty || environmentdomain.touched)"
+                class="alert alert-danger">
+                <div *ngIf="environmentdomain.errors.required">Please select a Environment Domain.</div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>CI version/ Release being implemented</label>
+              <input class="form-control" [disabled]="itemId" #CIversion="ngModel" [(ngModel)]="event.CIversion"
+                name="CIversion" maxlength="50" required>
+            </div>
+            
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+
+            <div class="col-sm-5 form-group">
+              <label>Change Co-ordinator</label>
+              <input class="form-control" type="text" id="status" name="status" value="Jhonston,Gina" readonly>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Environment</label>
+              <input class="form-control" type="text" id="env" name="env" value="Production" readonly>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+
+            <div class="col-sm-5 form-group">
+              <label>Impact</label>
+              <input class="form-control" type="text" id="Impact" name="Impact" value="3-Low" readonly>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <label>Priority</label>
+              <select class="form-control" name="priority" [disabled]="itemId" #priority="ngModel"
+                [(ngModel)]="event.CItem" required>
+                <option value="1">--None--</option>
+                <option value="2">1-critical</option>
+                <option value="3">2-High</option>
+                <option value="4">3-Moderate</option>
+                <option value="5">4-Low</option>
+              </select>
+              <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
+                <div *ngIf="priority.errors.required">Please select a priority</div>
+              </div>
+            </div>
+
+            <div class="col-sm-2 col-sm-offset-4"></div>
+
+
+            <div class="col-sm-5 form-group">
+              <label>Risk</label>
+              <input class="form-control" type="text" id="Risk" name="Risk" value="--None--" readonly>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-sm-12 form-group">
+              <label>Short Description</label>
+              <input class="form-control" name="sd" maxlength="50" required>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="col-sm-12 form-text">
+              <label>Description</label>
+              <textarea class="form-control" name="desc"></textarea>
+            </div>
+          </div>
+          <br>
+          <!-- Tabs Start -->
+          <ngb-tabset [destroyOnHide]="false">  
+    
+            <ngb-tab title="Planning">  
+              <ng-template ngbTabContent>  
+                
+          
+          
+               
+                <div class="form-row mt-4">
+                  <div class="col-sm-6 form-group">
+                    <label>Justification</label>
+                    <input class="form-control" name="sd" maxlength="100" required>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                    <label>Will data be inserted/modified/deleted?</label>
+                    <select class="form-control" name="PlanningDW1" [disabled]="itemId" #priority="ngModel"
+                      [(ngModel)]="event.CItem" required>
+                      <option value="1">--None--</option>
+                      <option value="2">Yes</option>
+                      <option value="3">No</option>
+                    </select>
+                    <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
+                      <div *ngIf="priority.errors.required">Please select a priority</div>
+                    </div>
+                  </div>
+                </div>
+          
+              </ng-template>  
+            </ngb-tab>  
+          
+            <ngb-tab title="Schedule">  
+              <ng-template ngbTabContent>  
+                
+                <div class="row mt-4">
+                  <div class="col-sm-4 form-group">
+                    <label>Requested by date</label>
+                    <div class="input-group">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
+                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
+                              [disabled]="itemId" name="startdate" required>
+          
+                            <!-- <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
+                          </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="time" style="margin: -29px 15px;"><ngb-timepicker [minuteStep]="15" size="small" [(ngModel)]="event.starttime" name="starttime" (change)="setEndDate()" (click)="setEndDate()"></ngb-timepicker></div> -->
+                    </div>
+                  </div>
+          
+                  <div class="col-sm-4 form-group">
+                    <label>Planned start date</label>
+                    <div class="input-group">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
+                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
+                              [disabled]="itemId" name="startdate" required>
+          
+                            <!-- <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
+                          </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="time" style="margin: -29px 15px;"><ngb-timepicker [minuteStep]="15" size="small" [(ngModel)]="event.starttime" name="starttime" (change)="setEndDate()" (click)="setEndDate()"></ngb-timepicker></div> -->
+                    </div>
+                  </div>
+          
+                  <div class="col-sm-4 form-group">
+                    <label>Planned end date</label>
+                    <div class="input-group">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
+                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
+                              [disabled]="itemId" name="startdate" required>
+          
+                            <!-- <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
+                          </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="time" style="margin: -29px 15px;"><ngb-timepicker [minuteStep]="15" size="small" [(ngModel)]="event.starttime" name="starttime" (change)="setEndDate()" (click)="setEndDate()"></ngb-timepicker></div> -->
+                    </div>
+                  </div>
+          
+                </div>
+          
+          
+              </ng-template>  
+            </ngb-tab>
+               
+          </ngb-tabset>  
+          
+
+
+          <!-- Tabs End -->
+          <br>
+          <fieldset>
+            <div class="form-row">
+              <div class="col-sm-9 form-group">
+                <a class="btn btn-default float-right"></a>
+              </div>
+              <div class="col-sm-1 form-group">
+                <button type="button" [disabled]="!myForm.form.valid" *ngIf="!itemId"
+                  class="btn btn-default float-right" (click)="createEvent()">Create
+                  Entry</button>
+              </div>
+              <div class="col-sm-1 form-group">
+                &nbsp;
+              </div>
+              <div class="col-sm-1 form-group">
+                <button type="button" *ngIf="!itemId" class="btn btn-default float-right"
+                  (click)="backtoApptListing()">Delete Entry</button>
+              </div>
+
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </form>
+  </div>
+</div>
+
+ 
+
+<style>
+  .line2 {
+    background-color: red;
+  }
+
+  /* .line {
+        position: absolute;
+        height: 2px;
+        background: #1E88E5;
+        width: 25%;
+        top: 34px;
+        left: 0;
+        transition: 0.25s ease;
+      } */
+  /*.ulColor{
+    background: red;
+    display: inline-block;
+  }*/
+
+  .tab ul {
+    padding: 10px;
+    background: lightgrey;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 0;
+  }
+
+  .tab ul li {
+    display: inline-block;
+    list-style-type: none;
+    border-right: 2px solid black;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 24px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+  }
+
+  .tab ul li:last-child {
+    border-right: none;
+  }
+
+  .tab ul li:hover {
+    color: #e4ff00;
+  }
+
+  .tab ul:active {
+    background-color: red;
+  }
+
+  .color {
+    color: #e4ff00;
+  }
+
+  .content {
+    background: white;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    /*padding-right:87rem;*/
+  }
+
+  .content-value h2 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+</style>

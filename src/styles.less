@@ -1,0 +1,108 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import '../node_modules/material-icons/iconfont/material-icons.css';
+@color-weekend: red;
+@main-color: #2124f1;
+@submain-color: #8b8c8d;
+
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
+}
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+
+
+
+
+.cal-week-view .cal-day-headers .cal-header:first-child {
+  color: @color-weekend;
+}
+.cal-week-view .cal-day-headers .cal-header:last-child {
+  color: @color-weekend;
+}
+.cal-week-view .cal-header.cal-weekend span {
+  color: @color-weekend;
+}
+
+
+
+
+
+.btn-primary {
+  color: #fff;
+  background-color: @submain-color;
+  border-color: @submain-color;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: @main-color;
+  border-color: @main-color;
+}
+a {
+  color: @main-color;
+}
+.cal-month-view .cal-day-badge {
+  background-color: @main-color;
+}
+
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #96a2af;
+  border-color: #96a2af;
+}
+
+.cal-event {
+  color: #000 !important;
+}
+
+.material-icons-cal {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+}

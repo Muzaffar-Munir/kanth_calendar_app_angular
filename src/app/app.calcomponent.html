@@ -1,0 +1,143 @@
+
+<div class="container-fluid calendar-background">
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-atom">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="form-row heading">
+    <div class="col-sm-9">
+      <h2><span>Release Calendar</span></h2>
+    </div>
+  </div>
+  <div style="float: right;" class="ml-3">
+    <label>Release Category  </label>
+
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="cities" [(ngModel)]="selectedItems"
+          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect()">
+        </ng-multiselect-dropdown>
+
+    <!-- <select class="form-control">
+      <option value="1">None</option>
+      <option value="2">Major</option>
+      <option value="3">Minor</option>
+      <option value="4">patch</option>
+      <option value="5">certificate</option>
+      <option value="6">open Schedule window</option>
+    </select> -->
+  </div>
+  <div style="float: right;"> 
+    <label>Assignment group  </label>
+    <ng-multiselect-dropdown [placeholder]="'Select'" [data]="cities" [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings" (onSelect)="onItemSelect()" (onDeSelect)="onDeSelect()">
+  </ng-multiselect-dropdown>
+    <!-- <select class="form-control">
+      <option value="1">none</option>
+      <option value="2">Ancillary Seats/Upsell</option>
+      <option value="3">Ancillary Bags</option>
+      <option value="4">Retail</option>
+      <option value="5">Flight Services</option>
+      <option value="6">Shopping</option>
+      <option value="7">Brand</option>
+    </select> -->
+  </div>
+  <br><br><br><br>
+  <!-- <div style="float: right;" class="btn btn-primary"><a  style="color:#fff;">Search </a></div><br><br> -->
+  <div style="float: right;" class="btn btn-primary"><a  style="color:#fff;" (click)="handleEvent()">Add Event </a></div>
+  
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary"
+             mwlCalendarPreviousView
+             [view]="view"
+             [(viewDate)]="viewDate"
+             (viewDateChange)="activeDayIsOpen = false">
+          Previous
+        </div>
+        <div class="btn btn-outline-secondary"
+             mwlCalendarToday
+             [(viewDate)]="viewDate">
+          Today
+        </div>
+        <div class="btn btn-primary"
+             mwlCalendarNextView
+             [view]="view"
+             [(viewDate)]="viewDate"
+             (viewDateChange)="activeDayIsOpen = false">
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+       <span>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</span>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary"
+             (click)="view = CalendarView.Month"
+             [class.active]="view === CalendarView.Month">
+          Month
+        </div>
+        <div class="btn btn-primary"
+             (click)="view = CalendarView.Week"
+             [class.active]="view === CalendarView.Week">
+          Week
+        </div>
+        <div class="btn btn-primary"
+             (click)="view = CalendarView.Day"
+             [class.active]="view === CalendarView.Day">
+          Day
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <ng-template #weekViewHourSegmentTemplate
+               let-segment="segment"
+               let-locale="locale"
+               let-segmentHeight="segmentHeight"
+               let-isTimeLabel="isTimeLabel">
+    <div #segmentElement
+         class="cal-hour-segment"
+         [style.height.px]="segmentHeight"
+         [class.cal-hour-start]="segment.isStart"
+         [class.cal-after-hour-start]="!segment.isStart"
+         [ngClass]="segment.cssClass"
+         (mousedown)="startDragToCreate(segment, $event, segmentElement)">
+      <div class="cal-time" *ngIf="isTimeLabel">
+        {{ segment.date | calendarDate:'weekViewHour':locale }}
+      </div>
+    </div>
+  </ng-template>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month"
+                             [viewDate]="viewDate"
+                             [events]="events"
+                             [refresh]="refresh"
+                             [activeDayIsOpen]="activeDayIsOpen"
+                             (dayClicked)="dayClicked($event.day)"
+                             (eventClicked)="handleEvent('Clicked', $event.event)"
+                             (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week"
+                            [viewDate]="viewDate"
+                            [events]="events"
+                            [dayStartHour]="0"
+                            [dayEndHour]="23"
+                            [refresh]="refresh"
+                            (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'"
+                            [hourSegmentTemplate]="weekViewHourSegmentTemplate"
+                            (eventClicked)="handleEvent('Clicked', $event.event)"
+                            (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day"
+                           [viewDate]="viewDate"
+                           [events]="events"
+                           [dayStartHour]="0"
+                           [dayEndHour]="23"
+                           [refresh]="refresh"
+                           (eventClicked)="handleEvent('Clicked', $event.event)"
+                           (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+  </div>
+</div>

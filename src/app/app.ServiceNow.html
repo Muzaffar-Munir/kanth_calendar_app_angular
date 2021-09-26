@@ -1,0 +1,64 @@
+<div class="page-content">  
+    <div class="container-fluid">
+      <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-atom">
+        <p style="font-size: 20px; color: white">Loading...</p>
+      </ngx-spinner>
+      <form name="eventForm" #eventForm="ngForm" class="form-horizontal">
+        <div class="content-box-large shade-box">
+          <div class="form-row">
+            <div class="panel-heading col-sm-11">
+             
+              <h4 class="panel-title"><span>ServiceNow Window</span></h4>
+            </div>
+            <div class="col-sm-1">
+              <a routerLink="/listing" data-rel="collapse" class="float-right" (click)="backtoApptListing()"><i class="glyphicon glyphicon-plus"></i>Back</a>
+            </div>
+          </div>
+
+  
+          <div class="form-row">
+            <div class="col-sm-6 form-group">
+              <label>RM Domain</label>
+              <select class="form-control" name="rmdomain" [disabled]="itemId" #rmdomain="ngModel" [(ngModel)]="event.rmdomain" required>
+                <option value="0">Select</option>
+                <option value="1">Ancillary Seats/Upsell</option>
+                <option value="2">Ancillary Bags</option>
+                <option value="3">Retail</option>
+                <option value="4">Flight Services</option>
+                <option value="5">Shopping</option>
+                <option value="6">Brand</option>
+              </select>
+              <div *ngIf="rmdomain.invalid && (rmdomain.dirty || rmdomain.touched)" class="alert alert-danger">
+                <div *ngIf="rmdomain.errors.required">Please select a RM Domain.</div>
+              </div>
+            </div>
+  
+            <div class="col-sm-6 form-group">
+              <label>Environment Domain</label>
+              <select class="form-control" name="environmentdomain" [disabled]="itemId" #environmentdomain="ngModel" [(ngModel)]="event.environmentdomain" required>
+                <option value="0">Select</option>
+                <option value="1">Air4</option>
+                <option value="2">DL</option>
+              </select>
+              <div *ngIf="environmentdomain.invalid && (environmentdomain.dirty || environmentdomain.touched)" class="alert alert-danger">
+                <div *ngIf="environmentdomain.errors.required">Please select a Environment Domain.</div>
+              </div>
+            </div>
+          </div>
+          
+          <fieldset>
+            <div class="form-row">
+              <div class="col-sm-9 form-group">
+                <a class="btn btn-default float-right"></a>
+              </div>
+              <div class="col-sm-1 form-group">
+                <button type="button" *ngIf="!itemId" class="btn btn-default float-right" (click)="createEvent()">integrate</button>
+              </div>
+            </div>
+            
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+  
