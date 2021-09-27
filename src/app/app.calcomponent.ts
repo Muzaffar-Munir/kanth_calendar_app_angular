@@ -14,6 +14,9 @@ import * as _ from 'underscore';
 import { DataService } from "./data.service";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CalendarService } from './service/calendar.service';
+import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
+
+import {Apollo, gql} from 'apollo-angular';
 
 const colors: any = {
   red: {
@@ -47,6 +50,8 @@ export class DemoComponent implements OnInit {
   
   
   cities: Array<any> = [];
+  assignments: Array<any> = [];
+  releases: Array<any> = [];
   selectedItems: Array<any> = [];
   dropdownSettings: any = {};
 
@@ -86,7 +91,24 @@ export class DemoComponent implements OnInit {
       { item_id: 5, item_text: 'Chennai' },
       { item_id: 6, item_text: 'Navsari' }
   ];
-  this.selectedItems = [{ item_id: 4, item_text: 'Pune' }, { item_id: 6, item_text: 'Navsari' }];
+  this.assignments =  [
+    { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Ancillary Seats/Upsell' },
+  { item_id: 3, item_text: 'Ancillary Bags' },
+  { item_id: 4, item_text: 'Retail' },
+  { item_id: 5, item_text: 'Flight Services' },
+    { item_id: 6, item_text: 'Shopping' },
+    { item_id: 7, item_text: 'Brand' }
+];
+this.releases =  [
+  { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Major' },
+  { item_id: 3, item_text: 'Minor' },
+  { item_id: 4, item_text: 'Patch' },
+  { item_id: 5, item_text: 'Certificate' },
+  { item_id: 6, item_text: 'Open Schedule window' }
+];
+  this.selectedItems = [{ item_id: 4, item_text: 'Retail' }];
   this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -102,6 +124,11 @@ export class DemoComponent implements OnInit {
     //this.viewDate = new Date('2017/10/14');
     console.log('on calendar')
     console.log(this.clndrSrvc.calendarData)
+
+
+    //get preselected data
+
+    this.roomSelection();
 
     if(this.clndrSrvc.calendarData && this.clndrSrvc.calendarData.length){
       // calls getAppointment to modify as data is already exits in service
@@ -160,8 +187,8 @@ export class DemoComponent implements OnInit {
           {
             "apptID": 1,
             "Clientname": "CHG093736",
-            "Starttime": "2021-08-24T08:30:00",
-            "Endtime": "2021-08-24T17:00:00",           
+            "Starttime": "2021-09-26T08:30:00",
+            "Endtime": "2021-09-29T17:00:00",           
             "PrimaryColor": "#e28753",
             "SecondaryColor": "#e28753",
             "Deleted": false, 
@@ -172,8 +199,8 @@ export class DemoComponent implements OnInit {
           {
             "apptID": 2,
             "Clientname": "CHG726726",
-            "Starttime": "2021-08-24T09:00:00",
-            "Endtime": "2021-08-24T10:00:00",           
+            "Starttime": "2021-09-27T09:00:00",
+            "Endtime": "2021-09-28T10:00:00",           
             "PrimaryColor": "#7ab6eb",
             "SecondaryColor": "#7ab6eb",
             "Deleted": false,
@@ -184,8 +211,8 @@ export class DemoComponent implements OnInit {
           {
             "apptID": 3,
             "Clientname": "CHG735283",
-            "Starttime": "2021-08-24T09:00:00",
-            "Endtime": "2021-08-24T10:00:00",            
+            "Starttime": "2021-09-28T09:00:00",
+            "Endtime": "2021-09-29T10:00:00",            
             "PrimaryColor": "#44d839",
             "SecondaryColor": "#44d839",
             "Deleted": false,   
@@ -196,8 +223,8 @@ export class DemoComponent implements OnInit {
           {
             "apptID": 4,
             "Clientname": "CHG273637",
-            "Starttime": "2021-08-24T10:00:00",
-            "Endtime": "2021-08-24T11:00:00",           
+            "Starttime": "2021-09-29T10:00:00",
+            "Endtime": "2021-09-30T11:00:00",           
             "PrimaryColor": "#44d839",
             "SecondaryColor": "#44d839",
             "Deleted": false,  
@@ -257,9 +284,12 @@ export class DemoComponent implements OnInit {
      const findObj =  this.clndrSrvc.calendarData.find(element=> element.apptID ==event.id);
      console.log(findObj);
       this.clndrSrvc.calendarSelectedData = findObj;
-      this.router.navigate(['/addAppointment/' + event.id]);
+      // this.router.navigate(['/addAppointment/' + event.id]);
+     const modelRef =  this.modal.open(ModalViewEventComponent);
+     modelRef.componentInstance.id = event.id;
     } else {
-      this.router.navigate(['/addAppointment']);
+      // this.router.navigate(['/addAppointment']);
+      this.router.navigate(['/add-events-types']);
     }
   }
 

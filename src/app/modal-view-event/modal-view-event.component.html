@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    {{selectedEvent && selectedEvent.Clientname ? selectedEvent.Clientname : ''}}
+   </h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    <label for="start Time">Start Time</label><br>
+    <span *ngIf="selectedEvent && selectedEvent.Starttime">{{selectedEvent.Starttime | date: 'dd/MM/yyyy hh:mm a' }}</span>
+  </p>
+  <p>
+    <label for="End Time">End Time</label>
+    <br>
+    <span *ngIf="selectedEvent && selectedEvent.Endtime">{{selectedEvent.Endtime | date: 'dd/MM/yyyy hh:mm a' }}</span>
+  </p>
+  <p>
+    <label for="EnvironMent">Environment</label>
+    <br>
+    {{selectedEvent && selectedEvent.environment ? selectedEvent.environment : ''}}
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-info" (click)="onEdit()">Edit</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

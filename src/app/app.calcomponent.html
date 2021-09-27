@@ -12,37 +12,20 @@
   <div style="float: right;" class="ml-3">
     <label>Release Category  </label>
 
-        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="cities" [(ngModel)]="selectedItems"
+    <!-- [(ngModel)]="selectedItems" -->
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="releases" 
           [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect()">
         </ng-multiselect-dropdown>
-
-    <!-- <select class="form-control">
-      <option value="1">None</option>
-      <option value="2">Major</option>
-      <option value="3">Minor</option>
-      <option value="4">patch</option>
-      <option value="5">certificate</option>
-      <option value="6">open Schedule window</option>
-    </select> -->
   </div>
   <div style="float: right;"> 
     <label>Assignment group  </label>
-    <ng-multiselect-dropdown [placeholder]="'Select'" [data]="cities" [(ngModel)]="selectedItems"
+    <ng-multiselect-dropdown [placeholder]="'Select'" [data]="assignments" [(ngModel)]="selectedItems"
     [settings]="dropdownSettings" (onSelect)="onItemSelect()" (onDeSelect)="onDeSelect()">
   </ng-multiselect-dropdown>
-    <!-- <select class="form-control">
-      <option value="1">none</option>
-      <option value="2">Ancillary Seats/Upsell</option>
-      <option value="3">Ancillary Bags</option>
-      <option value="4">Retail</option>
-      <option value="5">Flight Services</option>
-      <option value="6">Shopping</option>
-      <option value="7">Brand</option>
-    </select> -->
   </div>
   <br><br><br><br>
   <!-- <div style="float: right;" class="btn btn-primary"><a  style="color:#fff;">Search </a></div><br><br> -->
-  <div style="float: right;" class="btn btn-primary"><a  style="color:#fff;" (click)="handleEvent()">Add Event </a></div>
+  <div style="float: right;" class="btn btn-primary" (click)="handleEvent()"><a  style="color:#fff;">Add Event </a></div>
   
   <div class="row text-center">
     <div class="col-md-4">

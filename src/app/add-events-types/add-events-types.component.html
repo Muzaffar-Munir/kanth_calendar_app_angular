@@ -1,0 +1,105 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-atom">
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
+    <form name="eventForm" #eventForm="ngForm" class="form-horizontal">
+      <div class="content-box-large shade-box">
+        <div class="form-row">
+          <div class="panel-heading col-sm-11">
+
+            <h4 class="panel-title"><span>What type of change is required</span></h4>
+          </div>
+          <div class="col-sm-1">
+            <a routerLink="/dashboard" data-rel="collapse" class="float-right"><i
+                class="glyphicon glyphicon-plus"></i>Back</a>
+          </div>
+        </div>
+
+        <form #myForm="ngForm">
+          <div class="form-row">
+            <div class="col-sm-5 form-group">
+              <ol>
+                <li><a routerLink="/addAppointment" >Create Normal</a></li>
+                <li><a routerLink="" >Create Standard</a></li>
+                <li><a routerLink="" >3rd</a></li>
+              </ol>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<style>
+  .line2 {
+    background-color: red;
+  }
+
+  /* .line {
+        position: absolute;
+        height: 2px;
+        background: #1E88E5;
+        width: 25%;
+        top: 34px;
+        left: 0;
+        transition: 0.25s ease;
+      } */
+  /*.ulColor{
+    background: red;
+    display: inline-block;
+  }*/
+
+  .tab ul {
+    padding: 10px;
+    background: lightgrey;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 0;
+  }
+
+  .tab ul li {
+    display: inline-block;
+    list-style-type: none;
+    border-right: 2px solid black;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 24px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+  }
+
+  .tab ul li:last-child {
+    border-right: none;
+  }
+
+  .tab ul li:hover {
+    color: #e4ff00;
+  }
+
+  .tab ul:active {
+    background-color: red;
+  }
+
+  .color {
+    color: #e4ff00;
+  }
+
+  .content {
+    background: white;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    /*padding-right:87rem;*/
+  }
+
+  .content-value h2 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+</style>

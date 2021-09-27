@@ -25,6 +25,11 @@ import { DataService } from "./data.service";
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import {HttpLink} from 'apollo-angular/http';
+import {InMemoryCache} from '@apollo/client/core';
+import { AddEventsTypesComponent } from './add-events-types/add-events-types.component';
 
 
 const routes: Routes = [
@@ -33,12 +38,13 @@ const routes: Routes = [
   { path: 'dashboard', component: DemoComponent },
   { path: 'dashboard/:id', component: DemoComponent },
 
+  { path: 'add-events-types', component: AddEventsTypesComponent },
   { path: 'addAppointment', component: AddAppointment },
   { path: 'addAppointment/:id', component: AddAppointment }
 ];
 
 @NgModule({
-    declarations: [AppComponent, DemoComponent,  AddAppointment, FilterPipe, NgbdDatepickerPopup, NgbdTimepickerBasic ],
+    declarations: [AppComponent, DemoComponent,  AddAppointment, FilterPipe, NgbdDatepickerPopup, NgbdTimepickerBasic, ModalViewEventComponent, AddEventsTypesComponent ],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { enableTracing: false, useHash: true }), CommonModule, FormsModule, NgbModule, FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -49,7 +55,34 @@ const routes: Routes = [
     NgMultiSelectDropDownModule.forRoot()
   ],
   exports: [RouterModule], 
-  providers: [DataService],
-  bootstrap: [AppComponent]
+  providers: [DataService,
+    // {
+    //   provide: APOLLO_OPTIONS,
+    //   useFactory: (httpLink: HttpLink) => {
+    //     return {
+    //       cache: new InMemoryCache(),
+    //       link: httpLink.create({
+    //         uri: 'http://releasecalendarapp-env-2.eba-wyu26hbu.us-east-2.elasticbeanstalk.com/graphiql',
+    //       }),
+    //     };
+    //   },
+    //   deps: [HttpLink],
+    // }
+    
+    // {
+    //   provide: APOLLO_OPTIONS,
+    //   useFactory: (httpLink: HttpLink) => {
+    //     return {
+    //       cache: new InMemoryCache(),
+    //       link: httpLink.create({
+    //         uri: 'http://releasecalendarapp-env-2.eba-wyu26hbu.us-east-2.elasticbeanstalk.com/graphiql',
+    //       }),
+    //     };
+    //   },
+    //   deps: [HttpLink],
+    // }
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ModalViewEventComponent]
 })
 export class AppModule { }
