@@ -32,6 +32,33 @@ export class AddAppointment implements OnInit {
      environment: null,
      releasecn: null,
     };
+
+    public appointment: any = {
+      apptID: _.random(20, 500),
+      releaceCategory : null,
+      type: 'Normal',
+      environmentDomain: null,
+      state: 'New',
+      releaseNumber: null,
+      conflictStatus: 'Not Run',
+      category: null,
+      assGroup: 'RevMgmt-ShoppingandBradningAPI',
+      configItem: null,
+      assignedTo: null,
+      ciVersion: null,
+      changeCoordinate: 'Jhonston,Gina',
+      environment: 'Production',
+      impact: '3-Low',
+      priority: null,
+      risk: '--None--',
+      shortDescription: null,
+      description: null,
+      justification: null,
+      isModified: null,
+      requestedDate: null,
+      startDate: null,
+      endDate: null
+    };
   public message: any;
   public sub: any;
   public validate: any = {};
@@ -49,18 +76,23 @@ export class AddAppointment implements OnInit {
       this.itemId = params.id;
     })
 
-    if(this.itemId  && this.clndrSrvc.calendarSelectedData && this.clndrSrvc.calendarSelectedData!=null){
-      this.event.releasecn = this.clndrSrvc.calendarSelectedData.Clientname;
-      this.event.startdate = moment(this.clndrSrvc.calendarSelectedData.Starttime).format().slice(0, 16);
-      this.event.enddate =  moment(this.clndrSrvc.calendarSelectedData.Endtime).format().slice(0, 16);
-      this.event.environment = this.clndrSrvc.calendarSelectedData.environment;
-      this.event.rmdomain = this.clndrSrvc.calendarSelectedData.rmdomain;
-      this.event.environmentdomain = this.clndrSrvc.calendarSelectedData.environmentdomain;
-      // "environment": this.event.environment,
-      // "environmentdomain": this.event.environmentdomain,
-      // "rmdomain": this.event.rmdomain
-      console.log(this.event);
-    }
+    // if(this.itemId  && this.clndrSrvc.calendarSelectedData && this.clndrSrvc.calendarSelectedData!=null){
+    //   this.event.releasecn = this.clndrSrvc.calendarSelectedData.Clientname;
+    //   this.event.startdate = moment(this.clndrSrvc.calendarSelectedData.Starttime).format().slice(0, 16);
+    //   this.event.enddate =  moment(this.clndrSrvc.calendarSelectedData.Endtime).format().slice(0, 16);
+    //   this.event.environment = this.clndrSrvc.calendarSelectedData.environment;
+    //   this.event.rmdomain = this.clndrSrvc.calendarSelectedData.rmdomain;
+    //   this.event.environmentdomain = this.clndrSrvc.calendarSelectedData.environmentdomain;
+    //   // "environment": this.event.environment,
+    //   // "environmentdomain": this.event.environmentdomain,
+    //   // "rmdomain": this.event.rmdomain
+    //   console.log(this.event);
+    // }
+
+
+     if(this.itemId  && this.clndrSrvc.calendarSelectedData && this.clndrSrvc.calendarSelectedData!=null){
+       this.appointment = this.clndrSrvc.calendarSelectedData;
+     }
   
   }
 
@@ -87,40 +119,41 @@ export class AddAppointment implements OnInit {
     console.log('we are here');
     console.log(this.event)
     const addedObj = {
-      "apptID": _.random(20, 500),
-      "Clientname": this.event.releasecn,
-      "Starttime": this.event.startdate,
-      "Endtime":  this.event.enddate,           
+      "apptID": this.appointment.apptID,
+      "Clientname": this.appointment.releaseNumber,
+      "Starttime": this.appointment.startDate,
+      "Endtime":  this.appointment.endDate,           
       "Firstname": null,
       "Surname": null,               
       "Comments": null,
       "PrimaryColor": "#e28753",
       "SecondaryColor": "#e28753",
       "Deleted": false,    
-      "environment": this.event.environment,
-      "environmentdomain": this.event.environmentdomain,
-      "rmdomain": this.event.rmdomain
+      "environment": this.appointment.environment,
+      "environmentdomain": this.appointment.environmentDomain,
+      "rmdomain": this.appointment.assignedTo
     };
-    if(this.event.rmdomain=='1'){
+    if(this.appointment.assignedTo=='1'){
       addedObj.PrimaryColor ='#e28753';
       addedObj.SecondaryColor ='#e28753';
-    } else if(this.event.rmdomain=='2'){
+    } else if(this.appointment.assignedTo=='2'){
       addedObj.PrimaryColor ='#7ab6eb';
       addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.event.rmdomain=='3'){
+    } else if(this.appointment.assignedTo=='3'){
       addedObj.PrimaryColor ='#44d839';
       addedObj.SecondaryColor ='#44d839';
-    } else if(this.event.rmdomain=='4'){
+    } else if(this.appointment.assignedTo=='4'){
       addedObj.PrimaryColor ='#e28753';
       addedObj.SecondaryColor ='#e28753';
-    } else if(this.event.rmdomain=='5'){
+    } else if(this.appointment.assignedTo=='5'){
       addedObj.PrimaryColor ='#7ab6eb';
       addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.event.rmdomain=='6'){
+    } else if(this.appointment.assignedTo=='6'){
       addedObj.PrimaryColor ='#44d839';
       addedObj.SecondaryColor ='#44d839';
     }
     this.clndrSrvc.calendarData.push(addedObj);
+    this.clndrSrvc.InsertedData.push(this.appointment);
     this.router.navigate(['/dashboard']);
     
   }
@@ -128,6 +161,60 @@ export class AddAppointment implements OnInit {
   id:any="Planning";
   tabChange(ids:any){
     this.id=ids;
+  }
+
+  SaveEntry(){
+
+    const addedObj = {
+      "apptID": this.appointment.apptID,
+      "Clientname": this.appointment.releaseNumber,
+      "Starttime": this.appointment.startDate,
+      "Endtime":  this.appointment.endDate,           
+      "Firstname": null,
+      "Surname": null,               
+      "Comments": null,
+      "PrimaryColor": "#e28753",
+      "SecondaryColor": "#e28753",
+      "Deleted": false,    
+      "environment": this.appointment.environment,
+      "environmentdomain": this.appointment.environmentDomain,
+      "rmdomain": this.appointment.assignedTo
+    };
+    if(this.appointment.assignedTo=='1'){
+      addedObj.PrimaryColor ='#e28753';
+      addedObj.SecondaryColor ='#e28753';
+    } else if(this.appointment.assignedTo=='2'){
+      addedObj.PrimaryColor ='#7ab6eb';
+      addedObj.SecondaryColor ='#7ab6eb';
+    } else if(this.appointment.assignedTo=='3'){
+      addedObj.PrimaryColor ='#44d839';
+      addedObj.SecondaryColor ='#44d839';
+    } else if(this.appointment.assignedTo=='4'){
+      addedObj.PrimaryColor ='#e28753';
+      addedObj.SecondaryColor ='#e28753';
+    } else if(this.appointment.assignedTo=='5'){
+      addedObj.PrimaryColor ='#7ab6eb';
+      addedObj.SecondaryColor ='#7ab6eb';
+    } else if(this.appointment.assignedTo=='6'){
+      addedObj.PrimaryColor ='#44d839';
+      addedObj.SecondaryColor ='#44d839';
+    }
+
+   const calendarDataIndex = this.clndrSrvc.calendarData.findIndex(x => x.apptID == this.itemId);
+   const insertedDataIndex = this.clndrSrvc.InsertedData.findIndex(x => x.apptID == this.itemId);
+  
+   console.log(calendarDataIndex)
+   if(calendarDataIndex !='-1' && insertedDataIndex!='-1'){ 
+    this.clndrSrvc.calendarData[calendarDataIndex] = addedObj;
+    this.clndrSrvc.InsertedData[insertedDataIndex] = this.appointment;
+    this.router.navigate(['/dashboard']);
+   } else {
+     alert('data not found. Please try again')
+   }
+
+  
+   
+   
   }
 
 }

@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class CalendarService {
 
-  calendarData: any= [];
+  InsertedData: any= [];
+  calendarData: any = [];
   calendarSelectedData: any= [];
 
   constructor() { }

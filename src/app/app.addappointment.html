@@ -20,8 +20,8 @@
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Release Category</label>
-              <select class="form-control" [disabled]="itemId" name="releaseType" #releaseType="ngModel"
-                [(ngModel)]="event.releaseType" required>
+              <select class="form-control"  name="releaseType" #releaseType="ngModel"
+                [(ngModel)]="appointment.releaceCategory" required>
                 <option value="1">--None--</option>
                 <option value="2">Major</option>
                 <option value="3">Minor</option>
@@ -37,15 +37,15 @@
 
             <div class="col-sm-5 form-group">
               <label>Type</label>
-              <input class="form-control" type="text" id="Type" name="Type" value="" readonly>
+              <input class="form-control" type="text" id="Type" name="Type"  [(ngModel)]="appointment.type"  readonly>
             </div>
 
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Environment Domain</label>
-              <select class="form-control" name="environmentdomain" [disabled]="itemId" #environmentdomain="ngModel"
-                [(ngModel)]="event.environmentdomain" required>
+              <select class="form-control" name="environmentdomain"  #environmentdomain="ngModel"
+              [(ngModel)]="appointment.environmentDomain" required>
                 <option value="1">Air4</option>
                 <option value="2">DL</option>
               </select>
@@ -60,13 +60,13 @@
 
             <div class="col-sm-5 form-group">
               <label>State</label>
-              <input class="form-control" type="text" id="state" name="state" value="New" readonly>
+              <input class="form-control" type="text" id="state" name="state" [(ngModel)]="appointment.state" readonly>
             </div>
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Release Change Number</label>
-              <input class="form-control" [disabled]="itemId" #releasecn="ngModel" [(ngModel)]="event.releasecn"
+              <input class="form-control"  #releasecn="ngModel" [(ngModel)]="appointment.releaseNumber"
                 name="releasecn" placeholder="RFC number" maxlength="50">
             </div>
             
@@ -74,14 +74,14 @@
 
             <div class="col-sm-5 form-group">
               <label>Conflict Status</label>
-              <input class="form-control" type="text" id="status" name="status" value="" readonly>
+              <input class="form-control" type="text" id="status" name="status"  readonly [(ngModel)]="appointment.conflictStatus">
             </div>
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Category</label>
-              <select class="form-control" name="Category" [disabled]="itemId" #Category="ngModel"
-                [(ngModel)]="event.Category" required>
+              <select class="form-control" name="Category"  #Category="ngModel"
+              [(ngModel)]="appointment.category" required>
                 <option value="1">--None--</option>
                 <option value="2">Messaging</option>
                 <option value="3">End user hardware</option>
@@ -106,14 +106,14 @@
             
             <div class="col-sm-5 form-group">
               <label>Assignment group</label>
-              <input class="form-control" type="text" id="status" name="status" value=""
+              <input class="form-control"  [(ngModel)]="appointment.assGroup" type="text" id="status" name="status" 
                 readonly>
             </div>
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Configuration Item</label>
-              <select class="form-control" name="CItem" [disabled]="itemId" #CItem="ngModel" [(ngModel)]="event.CItem" required>
+              <select class="form-control" name="CItem"  #CItem="ngModel" [(ngModel)]="appointment.configItem" required>
                 <option value="1">ShoppingAPI</option>
               </select>
               <div *ngIf="CItem.invalid && (CItem.dirty || CItem.touched)" class="alert alert-danger">
@@ -125,8 +125,8 @@
 
             <div class="col-sm-5 form-group">
               <label>Assigned To</label>
-              <select class="form-control" name="Assigned" [disabled]="itemId" #Assigned="ngModel"
-                [(ngModel)]="event.Assigned" required>
+              <select class="form-control" name="Assigned"  #Assigned="ngModel"
+              [(ngModel)]="appointment.assignedTo" required>
                 <option value="1">Jhonston,Gina</option>
                 <option value="2">Megha,Halgan</option>
                 <option value="3">Kantharao,Patchava</option>
@@ -143,7 +143,7 @@
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>CI version/ Release being implemented</label>
-              <input class="form-control" [disabled]="itemId" #CIversion="ngModel" [(ngModel)]="event.CIversion"
+              <input class="form-control"  #CIversion="ngModel" [(ngModel)]="appointment.ciVersion"
                 name="CIversion" maxlength="50" required>
             </div>
             
@@ -152,14 +152,14 @@
 
             <div class="col-sm-5 form-group">
               <label>Change Co-ordinator</label>
-              <input class="form-control" type="text" id="status" name="status" value="" readonly>
+              <input class="form-control" type="text" id="status" [(ngModel)]="appointment.changeCoordinate" name="status"  readonly>
             </div>
 
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Environment</label>
-              <input class="form-control" type="text" id="env" name="env" value="" readonly>
+              <input class="form-control" type="text" [(ngModel)]="appointment.environment" id="env" name="env"  readonly>
             </div>
 
             <div class="col-sm-2 col-sm-offset-4"></div>
@@ -167,15 +167,15 @@
 
             <div class="col-sm-5 form-group">
               <label>Impact</label>
-              <input class="form-control" type="text" id="Impact" name="Impact" value="" readonly>
+              <input class="form-control" type="text" [(ngModel)]="appointment.impact" id="Impact" name="Impact" readonly>
             </div>
 
           </div>
           <div class="form-row">
             <div class="col-sm-5 form-group">
               <label>Priority</label>
-              <select class="form-control" name="priority" [disabled]="itemId" #priority="ngModel"
-                [(ngModel)]="event.CItem" required>
+              <select class="form-control" name="priority"  #priority="ngModel"
+              [(ngModel)]="appointment.priority" required>
                 <option value="1">--None--</option>
                 <option value="2">1-critical</option>
                 <option value="3">2-High</option>
@@ -192,14 +192,14 @@
 
             <div class="col-sm-5 form-group">
               <label>Risk</label>
-              <input class="form-control" type="text" id="Risk" name="Risk" value="" readonly>
+              <input class="form-control" [(ngModel)]="appointment.risk" type="text" id="Risk" name="Risk" readonly>
             </div>
           </div>
 
           <div class="form-row">
             <div class="col-sm-12 form-group">
               <label>Short Description</label>
-              <input class="form-control" name="sd" maxlength="50" required>
+              <input class="form-control" name="sd" maxlength="50" [(ngModel)]="appointment.shortDescription" required>
             </div>
 
           </div>
@@ -207,7 +207,7 @@
           <div class="form-row">
             <div class="col-sm-12 form-text">
               <label>Description</label>
-              <textarea class="form-control" name="desc"></textarea>
+              <textarea class="form-control" name="desc" [(ngModel)]="appointment.description"></textarea>
             </div>
           </div>
           <br>
@@ -223,12 +223,12 @@
                 <div class="form-row mt-4">
                   <div class="col-sm-6 form-group">
                     <label>Justification</label>
-                    <input class="form-control" name="sd" maxlength="100" required>
+                    <input class="form-control" name="sd" [(ngModel)]="appointment.justification" maxlength="100" required>
                   </div>
                   <div class="col-sm-6 form-group">
                     <label>Will data be inserted/modified/deleted?</label>
-                    <select class="form-control" name="PlanningDW1" [disabled]="itemId" #priority="ngModel"
-                      [(ngModel)]="event.CItem" required>
+                    <select class="form-control" name="PlanningDW1" [(ngModel)]="appointment.isModified"  #priority="ngModel"
+                      required>
                       <option value="1">--None--</option>
                       <option value="2">Yes</option>
                       <option value="3">No</option>
@@ -253,12 +253,10 @@
                         <div class="form-group">
                           <div class="input-group">
                             <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
-                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
-                              [disabled]="itemId" name="startdate" required>
+                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate" [(ngModel)]="appointment.requestedDate"
+                               name="startdate" required>
           
-                            <!-- <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
-                          </div> -->
+                            
                           </div>
                         </div>
                       </div>
@@ -273,8 +271,8 @@
                         <div class="form-group">
                           <div class="input-group">
                             <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
-                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
-                              [disabled]="itemId" name="startdate" required>
+                            <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
+                               name="startdate" required>
           
                             <!-- <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
@@ -293,8 +291,8 @@
                         <div class="form-group">
                           <div class="input-group">
                             <!-- <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="event.startdate" name="startdate" ngbDatepicker #start="ngbDatepicker" (dateSelect)="setEndDate()"> -->
-                            <input class="form-control" type="datetime-local" [(ngModel)]="event.startdate"
-                              [disabled]="itemId" name="startdate" required>
+                            <input class="form-control" type="datetime-local" 
+                               name="startdate" required [(ngModel)]="appointment.endDate">
           
                             <!-- <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="start.toggle()" type="button"></button>
@@ -324,8 +322,12 @@
                 <a class="btn btn-default float-right"></a>
               </div>
               <div class="col-sm-1 form-group">
-                <button type="button" [disabled]="!myForm.form.valid" *ngIf="!itemId"
+                <!-- [disabled]="!myForm.form.valid" -->
+                <button type="button"  *ngIf="!itemId"
                   class="btn btn-default float-right" (click)="createEvent()">Create
+                  Entry</button>
+                  <button type="button"  *ngIf="itemId"
+                  class="btn btn-default float-right" (click)="SaveEntry()">Save
                   Entry</button>
               </div>
               <div class="col-sm-1 form-group">

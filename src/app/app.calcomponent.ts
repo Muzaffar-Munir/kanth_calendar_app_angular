@@ -16,7 +16,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CalendarService } from './service/calendar.service';
 import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
 
-import {Apollo, gql} from 'apollo-angular';
 
 const colors: any = {
   red: {
@@ -48,15 +47,82 @@ export class DemoComponent implements OnInit {
   public param: any = { id: '' };
   viewDate: Date = new Date();
   
-  
-  cities: Array<any> = [];
-  assignments: Array<any> = [];
-  releases: Array<any> = [];
-  selectedItems: Array<any> = [];
-  dropdownSettings: any = {};
+
+  // assignments: Array<any> = [];
+  // releases: Array<any> = [];
+  // selectedItems: Array<any> = [];
+  // dropdownSettings: any = {};
+
+  public assignments =  [
+    { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Ancillary Seats/Upsell' },
+  { item_id: 3, item_text: 'Ancillary Bags' },
+  { item_id: 4, item_text: 'Retail' },
+  { item_id: 5, item_text: 'Flight Services' },
+    { item_id: 6, item_text: 'Shopping' },
+    { item_id: 7, item_text: 'Brand' }
+];
+public releases =  [
+  { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Major' },
+  { item_id: 3, item_text: 'Minor' },
+  { item_id: 4, item_text: 'Patch' },
+  { item_id: 5, item_text: 'Certificate' },
+  { item_id: 6, item_text: 'Open Schedule window' }
+];
+  public selectedItems = [{ item_id: 4, item_text: 'Retail' }];
+  public dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: false,
+      enableCheckAll: false
+  };
 
   constructor(private modal: NgbModal, private http: HttpClient, private router: Router, private activeroute: ActivatedRoute, private cdr: ChangeDetectorRef, private servicedata: DataService,
-     private spinner: NgxSpinnerService, public clndrSrvc: CalendarService) {
+     private spinner: NgxSpinnerService, public clndrSrvc: CalendarService
+      ) {
+        this.clndrSrvc.calendarData.push({
+          "apptID": 318,
+          "Clientname": "CHG273637",
+          "Starttime": "2021-09-28T08:44",
+          "Endtime": "2021-09-28T10:44",           
+          "PrimaryColor": "#44d839",
+          "SecondaryColor": "#44d839",
+          "Deleted": false,  
+          "environment":"1",
+          "environmentdomain": "1",
+          "rmdomain": "1"            
+        });
+        this.clndrSrvc.InsertedData.push({
+          "apptID": 318,
+          "releaceCategory": "2",
+          "type": "Normal",
+          "environmentDomain": "1",
+          "state": "New",
+          "releaseNumber": "testing",
+          "conflictStatus": "Not Run",
+          "category": "3",
+          "assGroup": "RevMgmt-ShoppingandBradningAPI",
+          "configItem": "1",
+          "assignedTo": null,
+          "ciVersion": "testi",
+          "changeCoordinate": "Jhonston,Gina",
+          "environment": "Production",
+          "impact": "3-Low",
+          "priority": "4",
+          "risk": "--None--",
+          "shortDescription": "justss",
+          "description": "tesitjng",
+          "justification": "just",
+          "isModified": "2",
+          "requestedDate": "2021-09-28T08:44",
+          "startDate": "2021-09-28T08:44",
+          "endDate": "2021-09-28T10:44"
+      });
    
   }
   @ViewChild('modalContent')
@@ -82,60 +148,19 @@ export class DemoComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.cities = [
-      { item_id: 1, item_text: 'New Delhi' },
-      { item_id: 2, item_text: 'Mumbai' },
-      { item_id: 3, item_text: 'Bangalore' },
-      { item_id: 4, item_text: 'Pune' },
-      { item_id: 5, item_text: 'Chennai' },
-      { item_id: 6, item_text: 'Navsari' }
-  ];
-  this.assignments =  [
-    { item_id: 1, item_text: 'None' },
-  { item_id: 2, item_text: 'Ancillary Seats/Upsell' },
-  { item_id: 3, item_text: 'Ancillary Bags' },
-  { item_id: 4, item_text: 'Retail' },
-  { item_id: 5, item_text: 'Flight Services' },
-    { item_id: 6, item_text: 'Shopping' },
-    { item_id: 7, item_text: 'Brand' }
-];
-this.releases =  [
-  { item_id: 1, item_text: 'None' },
-  { item_id: 2, item_text: 'Major' },
-  { item_id: 3, item_text: 'Minor' },
-  { item_id: 4, item_text: 'Patch' },
-  { item_id: 5, item_text: 'Certificate' },
-  { item_id: 6, item_text: 'Open Schedule window' }
-];
-  this.selectedItems = [{ item_id: 4, item_text: 'Retail' }];
-  this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: false,
-      enableCheckAll: false
-  };
-
-
     //this.viewDate = new Date('2017/10/14');
     console.log('on calendar')
-    console.log(this.clndrSrvc.calendarData)
+    console.log(this.clndrSrvc.calendarData, this.clndrSrvc.InsertedData)
 
 
     //get preselected data
-
-    this.roomSelection();
 
     if(this.clndrSrvc.calendarData && this.clndrSrvc.calendarData.length){
       // calls getAppointment to modify as data is already exits in service
       this.getAppointments(this.clndrSrvc.calendarData)
     } else {
       // calls room selection as data not exists in service
-      this.roomSelection();
+      // this.roomSelection();
     }
     
    
@@ -281,11 +306,11 @@ this.releases =  [
   handleEvent(action?: string, event?: CalendarEvent): void {
    
     if(event && event.id){
-     const findObj =  this.clndrSrvc.calendarData.find(element=> element.apptID ==event.id);
+     const findObj =  this.clndrSrvc.InsertedData.find(element=> element.apptID ==event.id);
      console.log(findObj);
       this.clndrSrvc.calendarSelectedData = findObj;
       // this.router.navigate(['/addAppointment/' + event.id]);
-     const modelRef =  this.modal.open(ModalViewEventComponent);
+     const modelRef =  this.modal.open(ModalViewEventComponent, { size: 'xl' });
      modelRef.componentInstance.id = event.id;
     } else {
       // this.router.navigate(['/addAppointment']);
