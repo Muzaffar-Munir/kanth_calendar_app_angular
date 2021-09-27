@@ -26,10 +26,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
-import { APOLLO_OPTIONS } from 'apollo-angular';
-import {HttpLink} from 'apollo-angular/http';
-import {InMemoryCache} from '@apollo/client/core';
+//import { APOLLO_OPTIONS } from 'apollo-angular';
 import { AddEventsTypesComponent } from './add-events-types/add-events-types.component';
+//import { HttpLink, InMemoryCache } from '@apollo/client';
 
 
 const routes: Routes = [
@@ -37,14 +36,13 @@ const routes: Routes = [
   { path: 'login', component: AppComponent },
   { path: 'dashboard', component: DemoComponent },
   { path: 'dashboard/:id', component: DemoComponent },
-
   { path: 'add-events-types', component: AddEventsTypesComponent },
   { path: 'addAppointment', component: AddAppointment },
   { path: 'addAppointment/:id', component: AddAppointment }
 ];
 
 @NgModule({
-    declarations: [AppComponent, DemoComponent,  AddAppointment, FilterPipe, NgbdDatepickerPopup, NgbdTimepickerBasic, ModalViewEventComponent, AddEventsTypesComponent ],
+    declarations: [AppComponent, DemoComponent,  AddAppointment, FilterPipe, NgbdDatepickerPopup, NgbdTimepickerBasic, ModalViewEventComponent,AddEventsTypesComponent ],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { enableTracing: false, useHash: true }), CommonModule, FormsModule, NgbModule, FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -68,7 +66,6 @@ const routes: Routes = [
     //   },
     //   deps: [HttpLink],
     // }
-    
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalViewEventComponent]
