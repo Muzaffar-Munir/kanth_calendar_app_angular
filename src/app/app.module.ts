@@ -69,18 +69,6 @@ const routes: Routes = [
     //   deps: [HttpLink],
     // }
     
-    // {
-    //   provide: APOLLO_OPTIONS,
-    //   useFactory: (httpLink: HttpLink) => {
-    //     return {
-    //       cache: new InMemoryCache(),
-    //       link: httpLink.create({
-    //         uri: 'http://releasecalendarapp-env-2.eba-wyu26hbu.us-east-2.elasticbeanstalk.com/graphiql',
-    //       }),
-    //     };
-    //   },
-    //   deps: [HttpLink],
-    // }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalViewEventComponent]
