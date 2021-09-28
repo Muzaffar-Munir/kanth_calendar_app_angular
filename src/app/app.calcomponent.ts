@@ -85,44 +85,44 @@ public releases =  [
   constructor(private modal: NgbModal, private http: HttpClient, private router: Router, private activeroute: ActivatedRoute, private cdr: ChangeDetectorRef, private servicedata: DataService,
      private spinner: NgxSpinnerService, public clndrSrvc: CalendarService
       ) {
-        this.clndrSrvc.calendarData.push({
-          "apptID": 318,
-          "Clientname": "CHG273637",
-          "Starttime": "2021-09-28T08:44",
-          "Endtime": "2021-09-28T10:44",           
-          "PrimaryColor": "#44d839",
-          "SecondaryColor": "#44d839",
-          "Deleted": false,  
-          "environment":"1",
-          "environmentdomain": "1",
-          "rmdomain": "1"            
-        });
-        this.clndrSrvc.InsertedData.push({
-          "apptID": 318,
-          "releaceCategory": "2",
-          "type": "Normal",
-          "environmentDomain": "1",
-          "state": "New",
-          "releaseNumber": "testing",
-          "conflictStatus": "Not Run",
-          "category": "3",
-          "assGroup": "RevMgmt-ShoppingandBradningAPI",
-          "configItem": "1",
-          "assignedTo": null,
-          "ciVersion": "testi",
-          "changeCoordinate": "Jhonston,Gina",
-          "environment": "Production",
-          "impact": "3-Low",
-          "priority": "4",
-          "risk": "--None--",
-          "shortDescription": "justss",
-          "description": "tesitjng",
-          "justification": "just",
-          "isModified": "2",
-          "requestedDate": "2021-09-28T08:44",
-          "startDate": "2021-09-28T08:44",
-          "endDate": "2021-09-28T10:44"
-      });
+      //   this.clndrSrvc.calendarData.push({
+      //     "apptID": 318,
+      //     "Clientname": "CHG273637",
+      //     "Starttime": "2021-09-28T08:44",
+      //     "Endtime": "2021-09-28T10:44",           
+      //     "PrimaryColor": "#44d839",
+      //     "SecondaryColor": "#44d839",
+      //     "Deleted": false,  
+      //     "environment":"1",
+      //     "environmentdomain": "1",
+      //     "rmdomain": "1"            
+      //   });
+      //   this.clndrSrvc.InsertedData.push({
+      //     "apptID": 318,
+      //     "releaceCategory": "2",
+      //     "type": "Normal",
+      //     "environmentDomain": "1",
+      //     "state": "New",
+      //     "releaseNumber": "testing",
+      //     "conflictStatus": "Not Run",
+      //     "category": "3",
+      //     "assGroup": "RevMgmt-ShoppingandBradningAPI",
+      //     "configItem": "1",
+      //     "assignedTo": null,
+      //     "ciVersion": "testi",
+      //     "changeCoordinate": "Jhonston,Gina",
+      //     "environment": "Production",
+      //     "impact": "3-Low",
+      //     "priority": "4",
+      //     "risk": "--None--",
+      //     "shortDescription": "justss",
+      //     "description": "tesitjng",
+      //     "justification": "just",
+      //     "isModified": "2",
+      //     "requestedDate": "2021-09-28T08:44",
+      //     "startDate": "2021-09-28T08:44",
+      //     "endDate": "2021-09-28T10:44"
+      // });
    
   }
   @ViewChild('modalContent')

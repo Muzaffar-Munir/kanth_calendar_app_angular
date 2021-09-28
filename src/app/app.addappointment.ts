@@ -38,26 +38,28 @@ export class AddAppointment implements OnInit {
       releaceCategory : null,
       type: 'Normal',
       environmentDomain: null,
+      environmentDomainText: null,
       state: 'New',
       releaseNumber: null,
-      conflictStatus: 'Not Run',
+      requestedBy: null,
       category: null,
-      assGroup: 'RevMgmt-ShoppingandBradningAPI',
+      assGroup: 'BrandAPI',
       configItem: null,
       assignedTo: null,
       ciVersion: null,
       changeCoordinate: 'Jhonston,Gina',
       environment: 'Production',
-      impact: '3-Low',
       priority: null,
-      risk: '--None--',
       shortDescription: null,
       description: null,
       justification: null,
       isModified: null,
       requestedDate: null,
       startDate: null,
-      endDate: null
+      endDate: null,
+      closeNote: null,
+      closeCode: null,
+      title: null,
     };
   public message: any;
   public sub: any;
@@ -92,6 +94,9 @@ export class AddAppointment implements OnInit {
 
      if(this.itemId  && this.clndrSrvc.calendarSelectedData && this.clndrSrvc.calendarSelectedData!=null){
        this.appointment = this.clndrSrvc.calendarSelectedData;
+       this.appointment.requestedDate = moment(this.appointment.requestedDate).format().slice(0, 16);
+       this.appointment.startDate = moment(this.appointment.startDate).format().slice(0, 16);
+       this.appointment.endDate = moment(this.appointment.endDate).format().slice(0, 16);
      }
   
   }
@@ -118,9 +123,11 @@ export class AddAppointment implements OnInit {
   createEvent(){
     console.log('we are here');
     console.log(this.event)
+
+    this.appointment.title =  this.appointment.releaseNumber +' - ' + this.appointment.environmentDomain+ ' - '+ ' - '+ this.appointment.environment+' - '+this.appointment.ciVersion;
     const addedObj = {
       "apptID": this.appointment.apptID,
-      "Clientname": this.appointment.releaseNumber,
+      "Clientname": this.appointment.title,
       "Starttime": this.appointment.startDate,
       "Endtime":  this.appointment.endDate,           
       "Firstname": null,
@@ -133,25 +140,54 @@ export class AddAppointment implements OnInit {
       "environmentdomain": this.appointment.environmentDomain,
       "rmdomain": this.appointment.assignedTo
     };
-    if(this.appointment.assignedTo=='1'){
-      addedObj.PrimaryColor ='#e28753';
-      addedObj.SecondaryColor ='#e28753';
-    } else if(this.appointment.assignedTo=='2'){
-      addedObj.PrimaryColor ='#7ab6eb';
-      addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.appointment.assignedTo=='3'){
-      addedObj.PrimaryColor ='#44d839';
-      addedObj.SecondaryColor ='#44d839';
-    } else if(this.appointment.assignedTo=='4'){
-      addedObj.PrimaryColor ='#e28753';
-      addedObj.SecondaryColor ='#e28753';
-    } else if(this.appointment.assignedTo=='5'){
-      addedObj.PrimaryColor ='#7ab6eb';
-      addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.appointment.assignedTo=='6'){
-      addedObj.PrimaryColor ='#44d839';
-      addedObj.SecondaryColor ='#44d839';
-    }
+
+    if(this.appointment.assGroup=='BrandAPI'){
+     
+      if(this.appointment.releaceCategory=='Major'){
+        addedObj.PrimaryColor ='#006400';
+        addedObj.SecondaryColor ='#006400';
+      }
+
+      if(this.appointment.releaceCategory=='Minor'){
+       
+        addedObj.PrimaryColor ='#90ee90';
+        addedObj.SecondaryColor ='#90ee90';
+      }
+
+      if(this.appointment.releaceCategory=='Patch'){
+        addedObj.PrimaryColor ='#228B22';
+        addedObj.SecondaryColor ='#228B22';
+      }
+
+      if(this.appointment.releaceCategory=='Certificate'){
+        addedObj.PrimaryColor ='#00FF00';
+        addedObj.SecondaryColor ='#00FF00';
+      }
+    
+    } else if(this.appointment.assGroup=='RetailAPI'){
+
+      if(this.appointment.releaceCategory=='Major'){
+        addedObj.PrimaryColor ='#8B0000';
+        addedObj.SecondaryColor ='#8B0000';
+      }
+
+      if(this.appointment.releaceCategory=='Minor'){
+       
+        addedObj.PrimaryColor ='#FF7F7F';
+        addedObj.SecondaryColor ='#FF7F7F';
+      }
+
+      if(this.appointment.releaceCategory=='Patch'){
+        addedObj.PrimaryColor ='#ff4c4c';
+        addedObj.SecondaryColor ='#ff4c4c';
+      }
+
+      if(this.appointment.releaceCategory=='Certificate'){
+        addedObj.PrimaryColor ='#ff6666';
+        addedObj.SecondaryColor ='#ff6666';
+      }
+    }   
+
     this.clndrSrvc.calendarData.push(addedObj);
     this.clndrSrvc.InsertedData.push(this.appointment);
     this.router.navigate(['/dashboard']);
@@ -165,9 +201,11 @@ export class AddAppointment implements OnInit {
 
   SaveEntry(){
 
+    this.appointment.title =  this.appointment.releaseNumber +' - ' + this.appointment.environmentDomain+ ' - '+ ' - '+ this.appointment.environment+' - '+this.appointment.ciVersion;
+
     const addedObj = {
       "apptID": this.appointment.apptID,
-      "Clientname": this.appointment.releaseNumber,
+      "Clientname": this.appointment.title,
       "Starttime": this.appointment.startDate,
       "Endtime":  this.appointment.endDate,           
       "Firstname": null,
@@ -180,26 +218,56 @@ export class AddAppointment implements OnInit {
       "environmentdomain": this.appointment.environmentDomain,
       "rmdomain": this.appointment.assignedTo
     };
-    if(this.appointment.assignedTo=='1'){
-      addedObj.PrimaryColor ='#e28753';
-      addedObj.SecondaryColor ='#e28753';
-    } else if(this.appointment.assignedTo=='2'){
-      addedObj.PrimaryColor ='#7ab6eb';
-      addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.appointment.assignedTo=='3'){
-      addedObj.PrimaryColor ='#44d839';
-      addedObj.SecondaryColor ='#44d839';
-    } else if(this.appointment.assignedTo=='4'){
-      addedObj.PrimaryColor ='#e28753';
-      addedObj.SecondaryColor ='#e28753';
-    } else if(this.appointment.assignedTo=='5'){
-      addedObj.PrimaryColor ='#7ab6eb';
-      addedObj.SecondaryColor ='#7ab6eb';
-    } else if(this.appointment.assignedTo=='6'){
-      addedObj.PrimaryColor ='#44d839';
-      addedObj.SecondaryColor ='#44d839';
+   
+
+    if(this.appointment.assGroup=='BrandAPI'){
+     
+      if(this.appointment.releaceCategory=='Major'){
+        addedObj.PrimaryColor ='#006400';
+        addedObj.SecondaryColor ='#006400';
+      }
+
+      if(this.appointment.releaceCategory=='Minor'){
+       
+        addedObj.PrimaryColor ='#90ee90';
+        addedObj.SecondaryColor ='#90ee90';
+      }
+
+      if(this.appointment.releaceCategory=='Patch'){
+        addedObj.PrimaryColor ='#228B22';
+        addedObj.SecondaryColor ='#228B22';
+      }
+
+      if(this.appointment.releaceCategory=='Certificate'){
+        addedObj.PrimaryColor ='#00FF00';
+        addedObj.SecondaryColor ='#00FF00';
+      }
+    
+    } else if(this.appointment.assGroup=='RetailAPI'){
+
+      if(this.appointment.releaceCategory=='Major'){
+        addedObj.PrimaryColor ='#8B0000';
+        addedObj.SecondaryColor ='#8B0000';
+      }
+
+      if(this.appointment.releaceCategory=='Minor'){
+       
+        addedObj.PrimaryColor ='#FF7F7F';
+        addedObj.SecondaryColor ='#FF7F7F';
+      }
+
+      if(this.appointment.releaceCategory=='Patch'){
+        addedObj.PrimaryColor ='#ff4c4c';
+        addedObj.SecondaryColor ='#ff4c4c';
+      }
+
+      if(this.appointment.releaceCategory=='Certificate'){
+        addedObj.PrimaryColor ='#ff6666';
+        addedObj.SecondaryColor ='#ff6666';
+      }
     }
 
+    this.appointment.title = addedObj.Clientname;
    const calendarDataIndex = this.clndrSrvc.calendarData.findIndex(x => x.apptID == this.itemId);
    const insertedDataIndex = this.clndrSrvc.InsertedData.findIndex(x => x.apptID == this.itemId);
   
@@ -210,11 +278,45 @@ export class AddAppointment implements OnInit {
     this.router.navigate(['/dashboard']);
    } else {
      alert('data not found. Please try again')
-   }
+   }   
+   
+  }
 
-  
-   
-   
+  public isSaveDisabled(){
+    // releaceCategory : null,
+    // type: 'Normal',
+    // environmentDomain: null,
+    // environmentDomainText: null,
+    // state: 'New',
+    // releaseNumber: null,
+    // requestedBy: null,
+    // category: null,
+    // assGroup: 'BrandAPI',
+    // configItem: null,
+    // assignedTo: null,
+    // ciVersion: null,
+    // changeCoordinate: 'Jhonston,Gina',
+    // environment: 'Production',
+    // priority: null,
+    // shortDescription: null,
+    // description: null,
+    // justification: null,
+    // isModified: null,
+    // requestedDate: null,
+    // startDate: null,
+    // endDate: null,
+    // closeNote: null,
+    // closeCode: null,
+    if(this.appointment.releaceCategory !=null && this.appointment.type != null && this.appointment.environmentDomain != null
+      && this. appointment.state !=null && this.appointment.releaseNumber !=null && this.appointment.requestedBy !=null
+      && this.appointment.category && this.appointment.assGroup && this.appointment.configItem && this.appointment.assignedTo
+      && this.appointment.ciVersion && this.appointment.changeCoordinate && this.appointment.environment && this.appointment.priority
+      && this.appointment.shortDescription && this.appointment.description && this.appointment.justification && this.appointment.isModified
+      && this.appointment.requestedDate && this.appointment.startDate && this.appointment.endDate){
+        return false;
+      } else{
+        return true;
+      }
   }
 
 }

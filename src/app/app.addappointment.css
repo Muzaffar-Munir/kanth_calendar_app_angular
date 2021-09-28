@@ -1,3 +1,6 @@
 /* .form-width{
     max-width: 30rem !important;
 } */
+.required-color{
+    color: red;
+}
