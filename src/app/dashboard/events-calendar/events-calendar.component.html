@@ -1,3 +1,29 @@
+<div class="container-fluid calendar-background">
+
+
+  <div class="form-row heading">
+    <div class="col-sm-9">
+      <h2><span>Release Calendar</span></h2>
+    </div>
+  </div>
+  <div style="float: right;" class="ml-3">
+    <label>Release Category  </label>
+
+    <!-- [(ngModel)]="selectedItems" -->
+        <!-- <ng-multiselect-dropdown [placeholder]="'Select'" [data]="releases" 
+          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect()">
+        </ng-multiselect-dropdown> -->
+  </div>
+  <div style="float: right;"> 
+    <label>Assignment group  </label>
+    <!-- <ng-multiselect-dropdown [placeholder]="'Select'" [data]="assignments" [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings" (onSelect)="onItemSelect()" (onDeSelect)="onDeSelect()">
+  </ng-multiselect-dropdown> -->
+  </div>
+  <br><br><br><br>
+  <div style="float: right;" class="btn btn-primary" (click)="handleEvent()"><a  style="color:#fff;">Add Event </a></div>
+
+
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -58,7 +84,7 @@
     </div>
 
     
-    <div style="float: right;" class="btn btn-primary" (click)="handleEvent()"><a style="color:#fff;">Add Event </a></div>
+    <!-- <div style="float: right;" class="btn btn-primary" (click)="handleEvent()"><a style="color:#fff;">Add Event </a></div> -->
 
 
   </div>
@@ -119,3 +145,4 @@
       </button>
     </div>
   </ng-template>
+</div>

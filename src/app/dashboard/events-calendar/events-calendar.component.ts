@@ -22,6 +22,35 @@ import { ModalViewEventComponent } from '../modal-view-event/modal-view-event.co
 })
 export class EventsCalendarComponent implements OnInit {
 
+  public assignments =  [
+    { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Ancillary Seats/Upsell' },
+  { item_id: 3, item_text: 'Ancillary Bags' },
+  { item_id: 4, item_text: 'Retail' },
+  { item_id: 5, item_text: 'Flight Services' },
+    { item_id: 6, item_text: 'Shopping' },
+    { item_id: 7, item_text: 'Brand' }
+];
+public releases =  [
+  { item_id: 1, item_text: 'None' },
+  { item_id: 2, item_text: 'Major' },
+  { item_id: 3, item_text: 'Minor' },
+  { item_id: 4, item_text: 'Patch' },
+  { item_id: 5, item_text: 'Certificate' },
+  { item_id: 6, item_text: 'Open Schedule window' }
+];
+  public selectedItems = [{ item_id: 4, item_text: 'Retail' }];
+  public dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: false,
+      enableCheckAll: false
+  };
+
   colors: any = {
     red: {
       primary: '#ad2121',
@@ -119,7 +148,7 @@ export class EventsCalendarComponent implements OnInit {
   
   ngOnInit() {
     
-
+    this.graphQLcall();
     if(this.clndrSrvc.calendarData && this.clndrSrvc.calendarData.length){
       // calls getAppointment to modify as data is already exits in service
       this.getAppointments(this.clndrSrvc.calendarData)
@@ -183,6 +212,21 @@ export class EventsCalendarComponent implements OnInit {
 
 
   graphQLcall(){
+    const req = `configUI(filterBy: {releaseCategory:"Major",assignmentGrp:"RetailAPI",env:"PROD"}) 
+            { 
+              UISchema_id
+              releaseCategory
+              assignmentGrp
+              env
+              assignmentGrp
+              colorCode
+              function
+              createdAt
+              updatedAt
+          }`;
+    this.clndrSrvc.QueryGraphQL(req).subscribe((result: any)=> {
+      console.log(result);
+    });
     // this.apollo
     //   .watchQuery({
     //     query: gql`
@@ -253,7 +297,7 @@ export class EventsCalendarComponent implements OnInit {
        const modelRef =  this.modal.open(ModalViewEventComponent, { size: 'xl' });
        modelRef.componentInstance.id = event.id;
     } else {
-      this.router.navigate(['/dashboard/add-event']);
+      this.router.navigate(['/dashboard/add-event-types']);
     }
   }
 
@@ -286,4 +330,11 @@ export class EventsCalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
+  
+  onItemSelect() {
+    console.log('onItemSelect', this.selectedItems);
+  }
+  onDeSelect() {
+    console.log('onDeSelect', this.selectedItems);
+  }
 }

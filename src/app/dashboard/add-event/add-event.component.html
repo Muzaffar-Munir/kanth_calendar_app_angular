@@ -15,484 +15,497 @@
                   class="glyphicon glyphicon-plus"></i>Back</a>
             </div>
           </div>
-  
-          <form  #myForm="ngForm">
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Release Category <span class="required-color">*</span></label>
-                <select class="form-control"  name="releaseType"  #releaseType="ngModel"
-                  [(ngModel)]="appointment.releaceCategory" required>
-                  <option value="None">--None--</option>
-                  <option value="Major">Major</option>
-                  <option value="Minor">Minor</option>
-                  <option value="Patch">Patch</option>
-                  <option value="Certificate">Certificate</option>
-                </select>
-                <div *ngIf="releaseType.invalid && (releaseType.dirty || releaseType.touched)" class="alert alert-danger">
-                  <div *ngIf="releaseType && releaseType.errors && releaseType.errors.required">Please select a release type.</div>
-                </div>
-              </div>
-  
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-              <div class="col-sm-5 form-group">
-                <label>Type <span class="required-color">*</span></label>
-                <input class="form-control" [disabled]="itemId" type="text" id="Type" name="Type"  [(ngModel)]="appointment.type"  readonly>
-              </div>
-  
-            </div>
-            <hr>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Environment Domain <span class="required-color">*</span></label>
-                <select class="form-control" name="environmentdomain" [disabled]="itemId"  #environmentdomain="ngModel"
-                [(ngModel)]="appointment.environmentDomain" required>
-                  <option value="Air4">Air4</option>
-                  <option value="DL">DL</option>
-                </select>
-                <div *ngIf="environmentdomain.invalid && (environmentdomain.dirty || environmentdomain.touched)"
-                  class="alert alert-danger">
-                  <div *ngIf="environmentdomain && environmentdomain.errors && environmentdomain.errors.required">Please select a Environment Domain.</div>
-                </div>
-              </div>
-  
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-  
-              <div class="col-sm-5 form-group">
-                <label>State <span class="required-color">*</span></label>
-                <select [disabled]="!itemId" class="form-control" name="state" [(ngModel)]="appointment.state">
-                  <option value="New">New</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Close">Close</option>
-                  <option value="Cancel">Cancel</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Release Change Number <span class="required-color">*</span></label>
-                <input class="form-control"  #releasecn="ngModel" [disabled]="itemId" [(ngModel)]="appointment.releaseNumber"
-                  name="releasecn" placeholder="RFC number" maxlength="50">
-              </div>
-              
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-              <div class="col-sm-5 form-group">
-                <label>Requested By</label>
-                <select class="form-control" #requestedBy="ngModel" name="RequestedBy" [(ngModel)]="appointment.requestedBy">
-                  <option value="Jhonston,Gins M">Jhonston,Gins M</option>
-                  <option value="Heslop,Keith">Heslop,Keith</option>
-                  <option value="Steve,Bartholet">Steve,Bartholet</option>
-                  <option value="Megha,Halgan">Megha,Halgan</option>
-                  <option value="Kunal,Pandya">Kunal,Pandya</option>
-                  <option value="Kantharao,Patchava">Kantharao,Patchava</option>
-                  <option value="Shashidhar,Reddy">Shashidhar,Reddy</option>
-                  <option value="Krishnakanth,Anand">Krishnakanth,Anand</option>
-                  <option value="Hemanth,Karnati">Hemanth,Karnati</option>
-                  <option value="Anteneh,Meginstu">Anteneh,Meginstu</option>
-                  <option value="Parvathi,Sagan">Parvathi,Sagan</option>
-                  <option value="Basheer,Ahamed">Basheer,Ahamed</option>
-                  <option value="Walker,Rodney">Walker,Rodney</option>
-                </select>
-                <div *ngIf="requestedBy.invalid && (requestedBy.dirty || requestedBy.touched)" class="alert alert-danger">
-                  <div *ngIf="requestedBy && requestedBy.errors && requestedBy.errors.required">Please select a requestedBy Item</div>
-                </div>
-              
-              </div>
-  
-            </div>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Category</label>
-                <select class="form-control" name="Category" [disabled]="itemId"  #Category="ngModel"
-                [(ngModel)]="appointment.category" required>
-                  <option value="None">--None--</option>
-                  <option value="Messaging">Messaging</option>
-                  <option value="End user hardware">End user hardware</option>
-                  <option value="Telecom">Telecom</option>
-                  <option value="Mobile Device">Mobile Device</option>
-                  <option value="Software">Software</option>
-                  <option value="Application">Application</option>
-                  <option value="Network">Network</option>
-                  <option value="Database">Database</option>
-                  <option value="Storage">Storage</option>
-                  <option value="Server">Server</option>
-                  <option value="Facilities">Facilities</option>
-                  <option value="IT security">IT security</option>
-                  <option value="Radio">Radio</option>
-                </select>
-                <div *ngIf="Category.invalid && (Category.dirty || Category.touched)" class="alert alert-danger">
-                  <div *ngIf="Category && Category.errors && Category.errors.required">Please select a Category</div>
-                </div>
-              </div>
-  
-              <div class="col-sm-2 col-sm-offset-4"></div>
-              
-              <div class="col-sm-5 form-group">
-                <label>Assignment group</label>
-                <select class="form-control" name="assGroup"  #assignemtGroup="ngModel" [(ngModel)]="appointment.assGroup" required>
-                  <option value="BrandAPI">BrandAPI</option>
-                  <option value="RetailAPI">RetailAPI</option>
+
+          <tabset>
+
+            <tab heading="Intro" id="tab1">
+              <div class="form-row mt-4">
+                <div class="col-sm-5 form-group">
+                  <label>Release Category <span class="required-color">*</span></label>
+                  <select class="form-control"  name="releaseType"  #releaseType="ngModel"
+                    [(ngModel)]="appointment.releaceCategory" required (change)="releaceCategoryChanges()">
+                    <option value="None">--None--</option>
+                    <option value="Major">Major</option>
+                    <option value="Minor">Minor</option>
+                    <option value="Patch">Patch</option>
+                    <option value="Certificate">Certificate</option>
                   </select>
-                <div *ngIf="assignemtGroup.invalid && (assignemtGroup.dirty || assignemtGroup.touched)" class="alert alert-danger">
-                  <div *ngIf="assignemtGroup && assignemtGroup.errors && assignemtGroup.errors.required">Please select a assignemtGroup Item</div>
+                  <div *ngIf="releaseType.invalid && (releaseType.dirty || releaseType.touched)" class="alert alert-danger">
+                    <div *ngIf="releaseType && releaseType.errors && releaseType.errors.required">Please select a release type.</div>
+                  </div>
                 </div>
-               </div>
-            </div>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Configuration Item</label>
-                <select class="form-control" name="CItem"  #CItem="ngModel" [(ngModel)]="appointment.configItem" required>
-                  <option value="1">ShoppingAPI</option>
-                </select>
-                <div *ngIf="CItem.invalid && (CItem.dirty || CItem.touched)" class="alert alert-danger">
-                  <div *ngIf="CItem && CItem.errors && CItem.errors.required">Please select a Configuration Item</div>
+          
+                <div class="col-sm-2 col-sm-offset-4"></div>
+          
+                <!-- <div class="col-sm-5 form-group">
+                  <label>Type <span class="required-color">*</span></label>
+                  <input class="form-control" [disabled]="itemId" type="text" id="Type" name="Type"  [(ngModel)]="appointment.type"  readonly>
+                </div> -->
+                <div class="col-sm-5 form-group">
+                  <label>Environment Domain <span class="required-color">*</span></label>
+                  <select class="form-control" name="environmentdomain" [disabled]="itemId"  #environmentdomain="ngModel"
+                  [(ngModel)]="appointment.environmentDomain" required>
+                    <option value="Air4">Air4</option>
+                    <option value="DL">DL</option>
+                  </select>
+                  <div *ngIf="environmentdomain.invalid && (environmentdomain.dirty || environmentdomain.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="environmentdomain && environmentdomain.errors && environmentdomain.errors.required">Please select a Environment Domain.</div>
+                  </div>
                 </div>
+          
               </div>
-  
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-              <div class="col-sm-5 form-group">
-                <label>Assigned To</label>
-                <select class="form-control" name="Assigned"  [disabled]="itemId" #Assigned="ngModel"
-                [(ngModel)]="appointment.assignedTo" required>
-                  <option value="1">Jhonston,Gina</option>
-                  <option value="2">Megha,Halgan</option>
-                  <option value="3">Kantharao,Patchava</option>
-                  <option value="4">Shashidhar,Reddy</option>
-                </select>
-                <div *ngIf="Assigned.invalid && (Assigned.dirty || Assigned.touched)"
-                  class="alert alert-danger">
-                  <div *ngIf=" Assigned && Assigned.errors && Assigned.errors.required">Please select a Assigned to.</div>
-                </div>
-              </div>
-  
-  
-            </div>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>CI version/ Release being implemented</label>
-                <input class="form-control"  #CIversion="ngModel" [(ngModel)]="appointment.ciVersion"
-                  name="CIversion" maxlength="50" required>
-              </div>
+            </tab>
+
+
+            <tab heading="Details" [disabled]="!appointment.releaceCategory" *ngIf="appointment.releaceCategory=='Major'">
+
               
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-  
-              <div class="col-sm-5 form-group">
-                <label>Change Co-ordinator</label>
-                <select class="form-control" name="ordinator" [(ngModel)]="appointment.changeCoordinate">
-                  <option value="Jhonston,Gina">Jhonston,Gina</option>
-                  <option value="Parvathi,Sagan">Parvathi,Sagan</option>
-                  <option value="Basheer,Ahamed">Basheer,Ahamed</option>
-                  <option value="Walker,Rodney">Walker,Rodney</option>
-                </select>
-              </div>
-  
-            </div>
-            <div class="form-row">
-              <div class="col-sm-5 form-group">
-                <label>Environment</label>
-                <input class="form-control" type="text" [(ngModel)]="appointment.environment" id="env" name="env"  [disabled]="!itemId">
-              </div>
-  
-              <div class="col-sm-2 col-sm-offset-4"></div>
-  
-              <div class="col-sm-5 form-group">
-                <label>Priority</label>
-                <select class="form-control" name="priority"  #priority="ngModel"
-                [(ngModel)]="appointment.priority" required>
-                  <option value="None">--None--</option>
-                  <option value="1-critical">1-critical</option>
-                  <option value="2-High">2-High</option>
-                  <option value="3-Moderate">3-Moderate</option>
-                  <option value="4-Low">4-Low</option>
-                </select>
-                <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
-                  <div *ngIf="priority && priority.errors && priority.errors.required">Please select a priority</div>
+
+              <form  #myForm="ngForm" class="mt-4">
+                <div class="form-row">
+                  
+                  <div class="col-sm-5 form-group">
+                    <label>State <span class="required-color">*</span></label>
+                    <select [disabled]="!itemId" class="form-control" name="state" [(ngModel)]="appointment.state">
+                      <option value="New">New</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Close">Close</option>
+                      <option value="Cancel">Cancel</option>
+                    </select>
+                  </div>
+            
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+            
+                  <div class="col-sm-5 form-group">
+                    <label>Type <span class="required-color">*</span></label>
+                    <input class="form-control" [disabled]="itemId" type="text" id="Type" name="Type"  [(ngModel)]="appointment.type"  readonly>
+                  </div>
+            
                 </div>
-              </div>
-            </div>
-           
-  
-            <div class="form-row">
-              <div class="col-sm-12 form-group">
-                <label>Short Description</label>
-                <input class="form-control" name="sd" maxlength="50" [(ngModel)]="appointment.shortDescription" required>
-              </div>
-  
-            </div>
-  
-            <div class="form-row">
-              <div class="col-sm-12 form-text">
-                <label>Description</label>
-                <textarea class="form-control" name="desc" [(ngModel)]="appointment.description"></textarea>
-              </div>
-            </div>
-            <br>
-
-            <div>
-              <tabset>
-                <tab heading="Planning" id="tab1">
-
-
-                  <div class="form-row mt-4">
-                    <div class="col-sm-6 form-group">
-                      <label>Justification</label>
-                      <input class="form-control" name="Justification" [(ngModel)]="appointment.justification" maxlength="100" required>
+                <hr>
+               
+                <div class="form-row">
+                  <div class="col-sm-5 form-group">
+                    <label>Release Change Number <span class="required-color">*</span></label>
+                    <input class="form-control"  #releasecn="ngModel" [disabled]="itemId" [(ngModel)]="appointment.releaseNumber"
+                      name="releasecn" placeholder="RFC number" maxlength="50">
+                  </div>
+                  
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+            
+                  <div class="col-sm-5 form-group">
+                    <label>Requested By</label>
+                    <select class="form-control" #requestedBy="ngModel" name="RequestedBy" [(ngModel)]="appointment.requestedBy">
+                      <option value="Jhonston,Gins M">Jhonston,Gins M</option>
+                      <option value="Heslop,Keith">Heslop,Keith</option>
+                      <option value="Steve,Bartholet">Steve,Bartholet</option>
+                      <option value="Megha,Halgan">Megha,Halgan</option>
+                      <option value="Kunal,Pandya">Kunal,Pandya</option>
+                      <option value="Kantharao,Patchava">Kantharao,Patchava</option>
+                      <option value="Shashidhar,Reddy">Shashidhar,Reddy</option>
+                      <option value="Krishnakanth,Anand">Krishnakanth,Anand</option>
+                      <option value="Hemanth,Karnati">Hemanth,Karnati</option>
+                      <option value="Anteneh,Meginstu">Anteneh,Meginstu</option>
+                      <option value="Parvathi,Sagan">Parvathi,Sagan</option>
+                      <option value="Basheer,Ahamed">Basheer,Ahamed</option>
+                      <option value="Walker,Rodney">Walker,Rodney</option>
+                    </select>
+                    <div *ngIf="requestedBy.invalid && (requestedBy.dirty || requestedBy.touched)" class="alert alert-danger">
+                      <div *ngIf="requestedBy && requestedBy.errors && requestedBy.errors.required">Please select a requestedBy Item</div>
                     </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Will data be inserted/modified/deleted?</label>
-                      <select class="form-control" name="PlanningDW1" [(ngModel)]="appointment.isModified"  #priority="ngModel"
-                        required>
-                        <option value="None">--None--</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                      <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
-                        <div *ngIf="priority.errors && priority.errors.required">Please select a priority</div>
-                      </div>
+                  
+                  </div>
+            
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-5 form-group">
+                    <label>Category</label>
+                    <select class="form-control" name="Category" [disabled]="itemId"  #Category="ngModel"
+                    [(ngModel)]="appointment.category" required>
+                      <option value="None">--None--</option>
+                      <option value="Messaging">Messaging</option>
+                      <option value="End user hardware">End user hardware</option>
+                      <option value="Telecom">Telecom</option>
+                      <option value="Mobile Device">Mobile Device</option>
+                      <option value="Software">Software</option>
+                      <option value="Application">Application</option>
+                      <option value="Network">Network</option>
+                      <option value="Database">Database</option>
+                      <option value="Storage">Storage</option>
+                      <option value="Server">Server</option>
+                      <option value="Facilities">Facilities</option>
+                      <option value="IT security">IT security</option>
+                      <option value="Radio">Radio</option>
+                    </select>
+                    <div *ngIf="Category.invalid && (Category.dirty || Category.touched)" class="alert alert-danger">
+                      <div *ngIf="Category && Category.errors && Category.errors.required">Please select a Category</div>
                     </div>
                   </div>
-
-                </tab>
-
-                <tab heading="Schedule">
-
-                  <div class="row mt-4">
-                    <div class="col-sm-4 form-group">
-                      <label>Requested by date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.requestedDate"
-                                 name="requestedDate" required>
             
-                              
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+                  
+                  <div class="col-sm-5 form-group">
+                    <label>Assignment group</label>
+                    <select class="form-control" name="assGroup"  #assignemtGroup="ngModel" [(ngModel)]="appointment.assGroup" required>
+                      <!-- <option value="BrandAPI">BrandAPI</option>
+                      <option value="RetailAPI">RetailAPI</option> -->
+                      <option *ngFor="let item of configItems"  [ngValue]="item.assignmentGrp">{{item.assignmentGrp}}</option>
+                      </select>
+                    <div *ngIf="assignemtGroup.invalid && (assignemtGroup.dirty || assignemtGroup.touched)" class="alert alert-danger">
+                      <div *ngIf="assignemtGroup && assignemtGroup.errors && assignemtGroup.errors.required">Please select a assignemtGroup Item</div>
+                    </div>
+                   </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-5 form-group">
+                    <label>Configuration Item</label>
+                    <select class="form-control" name="CItem"  #CItem="ngModel" [(ngModel)]="configItem"  (change)="configItemChange()" required>
+                      <!-- <option value="1">ShoppingAPI</option> -->
+                      <option *ngFor="let item of configItems" [ngValue]="item">{{item.configurationItem}}</option>
+                    </select>
+                    <div *ngIf="CItem.invalid && (CItem.dirty || CItem.touched)" class="alert alert-danger">
+                      <div *ngIf="CItem && CItem.errors && CItem.errors.required">Please select a Configuration Item</div>
+                    </div>
+                  </div>
+            
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+            
+                  <div class="col-sm-5 form-group">
+                    <label>Assigned To</label>
+                    <select class="form-control" name="Assigned"  [disabled]="itemId" #Assigned="ngModel"
+                    [(ngModel)]="appointment.assignedTo" required>
+                      <option value="1">Jhonston,Gina</option>
+                      <option value="2">Megha,Halgan</option>
+                      <option value="3">Kantharao,Patchava</option>
+                      <option value="4">Shashidhar,Reddy</option>
+                    </select>
+                    <div *ngIf="Assigned.invalid && (Assigned.dirty || Assigned.touched)"
+                      class="alert alert-danger">
+                      <div *ngIf=" Assigned && Assigned.errors && Assigned.errors.required">Please select a Assigned to.</div>
+                    </div>
+                  </div>
+            
+            
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-5 form-group">
+                    <label>CI version/ Release being implemented</label>
+                    <input class="form-control"  #CIversion="ngModel" [(ngModel)]="appointment.ciVersion"
+                      name="CIversion" maxlength="50" required>
+                  </div>
+                  
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+            
+            
+                  <div class="col-sm-5 form-group">
+                    <label>Change Co-ordinator</label>
+                    <select class="form-control" name="ordinator" [(ngModel)]="appointment.changeCoordinate">
+                      <option *ngFor="let item of configItems" [ngValue]="item.changeCoOrdinator">{{item.changeCoOrdinator}}</option>
+
+                    </select>
+                  </div>
+            
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-5 form-group">
+                    <label>Environment</label>
+                    <input class="form-control" type="text" [(ngModel)]="appointment.environment" id="env" name="env"  [disabled]="!itemId">
+                  </div>
+            
+                  <div class="col-sm-2 col-sm-offset-4"></div>
+            
+                  <div class="col-sm-5 form-group">
+                    <label>Priority</label>
+                    <select class="form-control" name="priority"  #priority="ngModel"
+                    [(ngModel)]="appointment.priority" required>
+                      <option value="None">--None--</option>
+                      <option value="1-critical">1-critical</option>
+                      <option value="2-High">2-High</option>
+                      <option value="3-Moderate">3-Moderate</option>
+                      <option value="4-Low">4-Low</option>
+                    </select>
+                    <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
+                      <div *ngIf="priority && priority.errors && priority.errors.required">Please select a priority</div>
+                    </div>
+                  </div>
+                </div>
+               
+            
+                <div class="form-row">
+                  <div class="col-sm-12 form-group">
+                    <label>Short Description</label>
+                    <input class="form-control" name="sd" maxlength="50" [(ngModel)]="appointment.shortDescription" required>
+                  </div>
+            
+                </div>
+            
+                <div class="form-row">
+                  <div class="col-sm-12 form-text">
+                    <label>Description</label>
+                    <textarea class="form-control" name="desc" [(ngModel)]="appointment.description"></textarea>
+                  </div>
+                </div>
+                <br>
+            
+                <div>
+                  <tabset>
+                    <tab heading="Planning" id="tab1">
+            
+            
+                      <div class="form-row mt-4">
+                        <div class="col-sm-6 form-group">
+                          <label>Justification</label>
+                          <input class="form-control" name="Justification" [(ngModel)]="appointment.justification" maxlength="100" required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                          <label>Will data be inserted/modified/deleted?</label>
+                          <select class="form-control" name="PlanningDW1" [(ngModel)]="appointment.isModified"  #priority="ngModel"
+                            required>
+                            <option value="None">--None--</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                          <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
+                            <div *ngIf="priority.errors && priority.errors.required">Please select a priority</div>
+                          </div>
+                        </div>
+                      </div>
+            
+                    </tab>
+            
+                    <tab heading="Schedule">
+            
+                      <div class="row mt-4">
+                        <div class="col-sm-4 form-group">
+                          <label>Requested by date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.requestedDate"
+                                     name="requestedDate" required>
+                
+                                  
+                                </div>
+                              </div>
+                            </div>
+                           </div>
+                        </div>
+                
+                        <div class="col-sm-4 form-group">
+                          <label>Planned start date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
+                                     name="startdate" required>
+                
+                                 </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                       </div>
-                    </div>
+                
+                        <div class="col-sm-4 form-group">
+                          <label>Planned end date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local" 
+                                     name="endDate" required [(ngModel)]="appointment.endDate">
+                
+                                 </div>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                
+                      </div>
             
-                    <div class="col-sm-4 form-group">
-                      <label>Planned start date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
-                                 name="startdate" required>
             
-                             </div>
+                    </tab>
+            
+            
+                    <tab heading="Clousre Information" *ngIf="appointment.state=='Close'">
+            
+            
+                      <div class="form-row mt-4">
+                        
+                        <div class="col-sm-6 form-group">
+                          <label>Clousre Code</label>
+                          <select class="form-control" name="code" [(ngModel)]="appointment.closeCode"  #closedNotes="ngModel"
+                            required>
+                            <option value="None">--None--</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                          <div *ngIf="closedNotes && closedNotes.invalid && (closedNotes.dirty || closedNotes.touched)" class="alert alert-danger">
+                            <div *ngIf="closedNotes && closedNotes.errors && closedNotes.errors.required">Please select Clousre Code</div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-            
-                    <div class="col-sm-4 form-group">
-                      <label>Planned end date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local" 
-                                 name="endDate" required [(ngModel)]="appointment.endDate">
-            
-                             </div>
+                        <div class="col-sm-6 form-group">
+                          <label>Clousre Note</label>
+                          <textarea class="form-control" name="note" [(ngModel)]="appointment.closeNote"></textarea>
                           </div>
+                      </div>
+            
+            
+                    </tab>
+                  </tabset>
+                </div>
+            
+                <br>
+                <fieldset>
+                  <div class="form-row" *ngIf="isSaveDisabled()">
+                    <label style=" color: red;font-weight: bold;"> Please fill all fields to submit !</label>
+                </div>
+                  <div class="form-row">
+                    <div class="col-sm-9 form-group">
+                      <a class="btn btn-default float-right"></a>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                      <button type="button"  *ngIf="!itemId && appointment.state=='New'" 
+                        [disabled]="isSaveDisabled()"
+                        class="btn btn-default float-right" (click)="createEvent()">Create
+                        Entry</button>
+                        <button type="button" [disabled]="isSaveDisabled()"  *ngIf="itemId && (appointment.state=='In Progress' || appointment.state=='Close' || appointment.state=='Cancel')"
+                        class="btn btn-default float-right" (click)="SaveEntry()">Update
+                        Entry</button>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                      &nbsp;
+                    </div>
+                    <div class="col-sm-1 form-group">
+                      <button type="button" *ngIf="appointment.state=='New'" class="btn btn-default float-right"
+                        (click)="backtoApptListing()">Delete Entry</button>
+                    </div>
+            
+                  </div>
+            
+                </fieldset>
+              </form>
+
+            </tab>
+
+            <tab heading="Details" [disabled]="!appointment.releaceCategory" *ngIf="appointment.releaceCategory=='Minor'">
+
+              <form  #myForm="ngForm" class="mt-4">
+                
+            
+                <div class="form-row">
+                  <div class="col-sm-12 form-group">
+                    <label>Short Description</label>
+                    <input class="form-control" name="sd" maxlength="50" [(ngModel)]="appointment.shortDescription" required>
+                  </div>
+            
+                </div>
+            
+                <div class="form-row">
+                  <div class="col-sm-12 form-text">
+                    <label>Description</label>
+                    <textarea class="form-control" name="desc" [(ngModel)]="appointment.description"></textarea>
+                  </div>
+                </div>
+                <br>
+            
+                <div>
+
+                  <tabset>
+                   
+                    <tab heading="Schedule">
+            
+                      <div class="row mt-4">
+                        <div class="col-sm-4 form-group">
+                          <label>Requested by date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.requestedDate"
+                                     name="requestedDate" required>
+                
+                                  
+                                </div>
+                              </div>
+                            </div>
+                           </div>
                         </div>
-                        </div>
-                    </div>
-            
-                  </div>
-
-
-                </tab>
-
-
-                <tab heading="Clousre Information" *ngIf="appointment.state=='Close'">
-
-
-                  <div class="form-row mt-4">
-                    
-                    <div class="col-sm-6 form-group">
-                      <label>Clousre Code</label>
-                      <select class="form-control" name="code" [(ngModel)]="appointment.closeCode"  #closedNotes="ngModel"
-                        required>
-                        <option value="None">--None--</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                      <div *ngIf="closedNotes && closedNotes.invalid && (closedNotes.dirty || closedNotes.touched)" class="alert alert-danger">
-                        <div *ngIf="closedNotes && closedNotes.errors && closedNotes.errors.required">Please select Clousre Code</div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Clousre Note</label>
-                      <textarea class="form-control" name="note" [(ngModel)]="appointment.closeNote"></textarea>
-                      </div>
-                  </div>
-
-
-                </tab>
-              </tabset>
-            </div>
-
-            <!-- <ngb-tabset [destroyOnHide]="false">  
-      
-              <ngb-tab title="Planning">  
-                <ng-template ngbTabContent>  
-                  
-            
-            
-                 
-                  <div class="form-row mt-4">
-                    <div class="col-sm-6 form-group">
-                      <label>Justification</label>
-                      <input class="form-control" name="Justification" [(ngModel)]="appointment.justification" maxlength="100" required>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Will data be inserted/modified/deleted?</label>
-                      <select class="form-control" name="PlanningDW1" [(ngModel)]="appointment.isModified"  #priority="ngModel"
-                        required>
-                        <option value="None">--None--</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                      <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
-                        <div *ngIf="priority.errors.required">Please select a priority</div>
-                      </div>
-                    </div>
-                  </div>
-            
-                </ng-template>  
-              </ngb-tab>  
-            
-              <ngb-tab title="Schedule">  
-                <ng-template ngbTabContent>  
-                  
-                  <div class="row mt-4">
-                    <div class="col-sm-4 form-group">
-                      <label>Requested by date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.requestedDate"
-                                 name="requestedDate" required>
-            
-                              
+                
+                        <div class="col-sm-4 form-group">
+                          <label>Planned start date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
+                                     name="startdate" required>
+                
+                                 </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                       </div>
-                    </div>
-            
-                    <div class="col-sm-4 form-group">
-                      <label>Planned start date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
-                                 name="startdate" required>
-            
-                             </div>
-                          </div>
+                
+                        <div class="col-sm-4 form-group">
+                          <label>Planned end date</label>
+                          <div class="input-group">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <input class="form-control" type="datetime-local" 
+                                     name="endDate" required [(ngModel)]="appointment.endDate">
+                
+                                 </div>
+                              </div>
+                            </div>
+                            </div>
                         </div>
+                
                       </div>
+            
+            
+                    </tab>
+            
+                  </tabset>
+                </div>
+            
+                <br>
+                <fieldset>
+                  <div class="form-row" *ngIf="isSaveDisabled()">
+                    <label style=" color: red;font-weight: bold;"> Please fill all fields to submit !</label>
+                </div>
+                  <div class="form-row">
+                    <div class="col-sm-9 form-group">
+                      <a class="btn btn-default float-right"></a>
                     </div>
-            
-                    <div class="col-sm-4 form-group">
-                      <label>Planned end date</label>
-                      <div class="input-group">
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <input class="form-control" type="datetime-local" 
-                                 name="endDate" required [(ngModel)]="appointment.endDate">
-            
-                             </div>
-                          </div>
-                        </div>
-                        </div>
+                    <div class="col-sm-1 form-group">
+                      <button type="button"  *ngIf="!itemId && appointment.state=='New'" 
+                        [disabled]="isSaveDisabled()"
+                        class="btn btn-default float-right" (click)="createEvent()">Create
+                        Entry</button>
+                        <button type="button" [disabled]="isSaveDisabled()"  *ngIf="itemId && (appointment.state=='In Progress' || appointment.state=='Close' || appointment.state=='Cancel')"
+                        class="btn btn-default float-right" (click)="SaveEntry()">Update
+                        Entry</button>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                      &nbsp;
+                    </div>
+                    <div class="col-sm-1 form-group">
+                      <button type="button" *ngIf="appointment.state=='New'" class="btn btn-default float-right"
+                        (click)="backtoApptListing()">Delete Entry</button>
                     </div>
             
                   </div>
             
-            
-                </ng-template>  
-              </ngb-tab>
-  
-  
-              <ngb-tab title="Clousre Information" *ngIf="appointment.state=='Close'">  
-                <ng-template ngbTabContent>  
-                           
-                 
-                  <div class="form-row mt-4">
-                    
-                    <div class="col-sm-6 form-group">
-                      <label>Clousre Code</label>
-                      <select class="form-control" name="code" [(ngModel)]="appointment.closeCode"  #closedNotes="ngModel"
-                        required>
-                        <option value="None">--None--</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                      <div *ngIf="closedNotes.invalid && (closedNotes.dirty || closedNotes.touched)" class="alert alert-danger">
-                        <div *ngIf="closedNotes.errors.required">Please select Clousre Code</div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Clousre Note</label>
-                      <textarea class="form-control" name="note" [(ngModel)]="appointment.closeNote"></textarea>
-                      </div>
-                  </div>
-            
-                </ng-template>  
-              </ngb-tab>
-                 
-            </ngb-tabset>  
-             -->
-  
-  
-            <br>
-            <fieldset>
-              <div class="form-row" *ngIf="isSaveDisabled()">
-                <label style=" color: red;font-weight: bold;"> Please fill all fields to submit !</label>
-            </div>
-              <div class="form-row">
-                <div class="col-sm-9 form-group">
-                  <a class="btn btn-default float-right"></a>
-                </div>
-                <div class="col-sm-1 form-group">
-                  <button type="button"  *ngIf="!itemId && appointment.state=='New'" 
-                    [disabled]="isSaveDisabled()"
-                    class="btn btn-default float-right" (click)="createEvent()">Create
-                    Entry</button>
-                    <button type="button" [disabled]="isSaveDisabled()"  *ngIf="itemId && (appointment.state=='In Progress' || appointment.state=='Close' || appointment.state=='Cancel')"
-                    class="btn btn-default float-right" (click)="SaveEntry()">Update
-                    Entry</button>
-                </div>
-                <div class="col-sm-1 form-group">
-                  &nbsp;
-                </div>
-                <div class="col-sm-1 form-group">
-                  <button type="button" *ngIf="appointment.state=='New'" class="btn btn-default float-right"
-                    (click)="backtoApptListing()">Delete Entry</button>
-                </div>
-  
-              </div>
-  
-            </fieldset>
-          </form>
-        </div>
-      </form> 
+                </fieldset>
+              </form>
    
-    </div>
-  </div>
+              </tab>
+              </tabset>
+    <!-- </div>
+  </div> -->
   
    
