@@ -8,6 +8,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddEventComponent } from './add-event/add-event.component';
 import { AddEventTypesComponent } from './add-event-types/add-event-types.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
+
 
 const routes: Routes= [
   {
@@ -16,6 +19,10 @@ const routes: Routes= [
   },
   {
     path: 'add-event',
+    component: AddEventComponent
+  },
+  {
+    path: 'add-event/:id',
     component: AddEventComponent
   },
   {
@@ -32,13 +39,15 @@ const routes: Routes= [
   declarations: [
     EventsCalendarComponent,
     AddEventComponent,
-    AddEventTypesComponent
+    AddEventTypesComponent,
+    ModalViewEventComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    TabsModule,
     NgbModalModule,
     CalendarModule.forRoot({
       provide: DateAdapter,

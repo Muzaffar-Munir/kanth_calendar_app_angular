@@ -11,6 +11,8 @@ import {
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { Apollo, gql } from 'apollo-angular';
 import { Router } from '@angular/router';
+import { CalendarService } from 'src/app/services/calendar.service';
+import { ModalViewEventComponent } from '../modal-view-event/modal-view-event.component';
 
 
 @Component({
@@ -66,6 +68,7 @@ export class EventsCalendarComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
+  public param: any = { id: '' };
 
   events: CalendarEvent[] = [
     {
@@ -110,36 +113,103 @@ export class EventsCalendarComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private apollo: Apollo, private router: Router) {}
+  constructor(private modal: NgbModal, private apollo: Apollo, private router: Router, 
+    private clndrSrvc: CalendarService) {}
 
+  
   ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          {
-            configUI(filterBy: {releaseCategory:"Major",assignmentGrp:"RetailAPI",env:"PROD"}) 
-            { 
-              UISchema_id
-              releaseCategory
-              assignmentGrp
-              env
-              assignmentGrp
-              colorCode
-              function
-              createdAt
-              updatedAt
-          }
-          }
-        `,
-      })
-      .valueChanges.subscribe((result: any) => {
-        console.log(result);
-        // this.rates = result?.data?.rates;
-        // this.loading = result.loading;
-        // this.error = result.error;
-      });
+    
+
+    if(this.clndrSrvc.calendarData && this.clndrSrvc.calendarData.length){
+      // calls getAppointment to modify as data is already exits in service
+      this.getAppointments(this.clndrSrvc.calendarData)
+    } else {
+      // calls room selection as data not exists in service
+      // this.roomSelection();
+    }
   }
 
+  getAppointments(data: any[]) {
+    var context = { act: this.actions, param: this.param, viewDate: '' };
+    const appts: any = [];
+    
+    console.log(data);
+    data.forEach(num => {
+      appts.push({
+        "id": num.apptID,
+        "start": new Date(num.Starttime),
+        "end": new Date(num.Endtime),
+        
+        "title": num.Clientname,
+        "color": {
+          "primary": num.PrimaryColor,
+          "secondary": num.SecondaryColor
+        },
+        "resizable": {
+          beforeStart: true,
+          afterEnd: true
+        },
+        "draggable": true
+        
+      });    
+    });
+    
+    // _.each(data, function (num, index) {
+    //   appts.push({
+    //     "id": num.apptID,
+    //     "start": new Date(num.Starttime),
+    //     "end": new Date(num.Endtime),
+        
+    //     "title": num.Clientname,
+    //     "color": {
+    //       "primary": num.PrimaryColor,
+    //       "secondary": num.SecondaryColor
+    //     },
+    //     "resizable": {
+    //       beforeStart: true,
+    //       afterEnd: true
+    //     },
+    //     "draggable": true
+        
+    //   });     
+     
+    // }, context);
+    this.events = appts;
+    
+    this.refresh.next();
+    
+
+  }
+
+
+  graphQLcall(){
+    // this.apollo
+    //   .watchQuery({
+    //     query: gql`
+    //       {
+    //         configUI(filterBy: {releaseCategory:"Major",assignmentGrp:"RetailAPI",env:"PROD"}) 
+    //         { 
+    //           UISchema_id
+    //           releaseCategory
+    //           assignmentGrp
+    //           env
+    //           assignmentGrp
+    //           colorCode
+    //           function
+    //           createdAt
+    //           updatedAt
+    //       }
+    //       }
+    //     `,
+    //   })
+    //   .valueChanges.subscribe((result: any) => {
+    //     console.log(result);
+    //     // this.rates = result?.data?.rates;
+    //     // this.loading = result.loading;
+    //     // this.error = result.error;
+    //   });
+
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -176,7 +246,12 @@ export class EventsCalendarComponent implements OnInit {
     this.modalData = { event, action };
     console.log(action,  event);
     if(event && action){
-      this.modal.open(this.modalContent, { size: 'lg' });
+      // this.modal.open(this.modalContent, { size: 'lg' });
+      const findObj =  this.clndrSrvc.InsertedData.find((element: any)=> element.apptID ==event.id);
+      console.log(findObj);
+       this.clndrSrvc.calendarSelectedData = findObj;
+       const modelRef =  this.modal.open(ModalViewEventComponent, { size: 'xl' });
+       modelRef.componentInstance.id = event.id;
     } else {
       this.router.navigate(['/dashboard/add-event']);
     }

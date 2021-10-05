@@ -1,0 +1,80 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+      {{selectedEvent && selectedEvent.releaseNumber ? selectedEvent.releaseNumber : ''}}
+     </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Release Category</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.releaceCategory">{{selectedEvent.releaceCategory }}</span>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Type</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.type">{{selectedEvent.type }}</span>
+        </p>
+      </div>
+      
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Environment Domain</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.environmentDomain">{{selectedEvent.environmentDomain }}</span>
+        </p>
+      </div>
+  
+  
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">State</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.state">{{selectedEvent.state }}</span>
+        </p>
+      </div>
+  
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Release Change Number</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.releaseNumber">{{selectedEvent.releaseNumber }}</span>
+        </p>
+      </div>
+  
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Category</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.category">{{selectedEvent.category }}</span>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Assignment group</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.assGroup">{{selectedEvent.assGroup }}</span>
+        </p>
+      </div>
+  
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">Start time</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.startDate">{{selectedEvent.startDate | date: 'dd/MM/yyyy hh:mm a' }}</span>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p>
+          <label for="start Time">End Time</label><br>
+          <span *ngIf="selectedEvent && selectedEvent.endDate">{{selectedEvent.endDate | date: 'dd/MM/yyyy hh:mm a' }}</span>
+        </p>
+      </div>
+     
+      
+    </div>
+    
+   
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="onEdit()">Edit</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>

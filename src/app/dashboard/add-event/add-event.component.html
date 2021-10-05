@@ -232,6 +232,114 @@
             </div>
             <br>
 
+            <div>
+              <tabset>
+                <tab heading="Planning" id="tab1">
+
+
+                  <div class="form-row mt-4">
+                    <div class="col-sm-6 form-group">
+                      <label>Justification</label>
+                      <input class="form-control" name="Justification" [(ngModel)]="appointment.justification" maxlength="100" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label>Will data be inserted/modified/deleted?</label>
+                      <select class="form-control" name="PlanningDW1" [(ngModel)]="appointment.isModified"  #priority="ngModel"
+                        required>
+                        <option value="None">--None--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                      <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="alert alert-danger">
+                        <div *ngIf="priority.errors && priority.errors.required">Please select a priority</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </tab>
+
+                <tab heading="Schedule">
+
+                  <div class="row mt-4">
+                    <div class="col-sm-4 form-group">
+                      <label>Requested by date</label>
+                      <div class="input-group">
+                        <div class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.requestedDate"
+                                 name="requestedDate" required>
+            
+                              
+                            </div>
+                          </div>
+                        </div>
+                       </div>
+                    </div>
+            
+                    <div class="col-sm-4 form-group">
+                      <label>Planned start date</label>
+                      <div class="input-group">
+                        <div class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" type="datetime-local"  [(ngModel)]="appointment.startDate"
+                                 name="startdate" required>
+            
+                             </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="col-sm-4 form-group">
+                      <label>Planned end date</label>
+                      <div class="input-group">
+                        <div class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" type="datetime-local" 
+                                 name="endDate" required [(ngModel)]="appointment.endDate">
+            
+                             </div>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+            
+                  </div>
+
+
+                </tab>
+
+
+                <tab heading="Clousre Information" *ngIf="appointment.state=='Close'">
+
+
+                  <div class="form-row mt-4">
+                    
+                    <div class="col-sm-6 form-group">
+                      <label>Clousre Code</label>
+                      <select class="form-control" name="code" [(ngModel)]="appointment.closeCode"  #closedNotes="ngModel"
+                        required>
+                        <option value="None">--None--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                      <div *ngIf="closedNotes && closedNotes.invalid && (closedNotes.dirty || closedNotes.touched)" class="alert alert-danger">
+                        <div *ngIf="closedNotes && closedNotes.errors && closedNotes.errors.required">Please select Clousre Code</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label>Clousre Note</label>
+                      <textarea class="form-control" name="note" [(ngModel)]="appointment.closeNote"></textarea>
+                      </div>
+                  </div>
+
+
+                </tab>
+              </tabset>
+            </div>
 
             <!-- <ngb-tabset [destroyOnHide]="false">  
       
