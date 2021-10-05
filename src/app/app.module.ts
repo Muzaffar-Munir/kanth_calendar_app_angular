@@ -1,73 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
-import { bootstrap } from 'bootstrap';
-import { AppComponent } from './app.apptcomponent';
 
-import { CommonModule } from '@angular/common';
-import { FlatpickrModule } from 'angularx-flatpickr';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { DemoComponent } from './app.calcomponent';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { FlatpickrModule } from 'angularx-flatpickr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-
-
-import { AddAppointment } from './app.addappointment';
-
-import { FilterPipe } from './filter.pipe';
-import { NgbdDatepickerPopup } from './datepicker-popup';
-import { NgbdTimepickerBasic } from './timepicker-basic';
-import { DataService } from "./data.service";
-
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { ModalViewEventComponent } from './modal-view-event/modal-view-event.component';
-//import { APOLLO_OPTIONS } from 'apollo-angular';
-import { AddEventsTypesComponent } from './add-events-types/add-events-types.component';
-//import { HttpLink, InMemoryCache } from '@apollo/client';
-
-
-const routes: Routes = [
-  { path: '', redirectTo: '/listing', pathMatch: 'full' },  
-  { path: 'login', component: AppComponent },
-  { path: 'dashboard', component: DemoComponent },
-  { path: 'dashboard/:id', component: DemoComponent },
-  { path: 'add-events-types', component: AddEventsTypesComponent },
-  { path: 'addAppointment', component: AddAppointment },
-  { path: 'addAppointment/:id', component: AddAppointment }
-];
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-    declarations: [AppComponent, DemoComponent,  AddAppointment, FilterPipe, NgbdDatepickerPopup, NgbdTimepickerBasic, ModalViewEventComponent,AddEventsTypesComponent ],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { enableTracing: false, useHash: true }), CommonModule, FormsModule, NgbModule, FlatpickrModule.forRoot(),
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    GraphQLModule,
+    HttpClientModule,
+    NgbModalModule,
+    NgbModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory
+      useFactory: adapterFactory,
     }),
-    NgxSpinnerModule,
-    ColorPickerModule,
-    NgMultiSelectDropDownModule.forRoot()
   ],
-  exports: [RouterModule], 
-  providers: [DataService,
-    // {
-    //   provide: APOLLO_OPTIONS,
-    //   useFactory: (httpLink: HttpLink) => {
-    //     return {
-    //       cache: new InMemoryCache(),
-    //       link: httpLink.create({
-    //         uri: 'http://releasecalendarapp-env-2.eba-wyu26hbu.us-east-2.elasticbeanstalk.com/graphiql',
-    //       }),
-    //     };
-    //   },
-    //   deps: [HttpLink],
-    // }
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [ModalViewEventComponent]
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
